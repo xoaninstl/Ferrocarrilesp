@@ -1,0 +1,11 @@
+/*
+Theme Name: Ferrocarril Esp
+Description: Tema personalizado para el blog de ferrocarriles españoles. Mantiene la estructura estática original con integración de WordPress para posts y búsqueda.
+Version: 1.0
+Author: Blog Ferrocarril Esp
+*/
+
+/* Este archivo es requerido por WordPress para reconocer el tema */
+/* Los estilos principales están en styles.css */
+
+@import url("styles.css");
