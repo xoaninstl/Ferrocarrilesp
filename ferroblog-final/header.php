@@ -3,32 +3,6 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script>
-    <?php
-    $events = [];
-    $args = [
-        'post_type' => 'ferroblog_event',
-        'posts_per_page' => -1,
-    ];
-    $event_query = new WP_Query($args);
-    if ($event_query->have_posts()) {
-        while ($event_query->have_posts()) {
-            $event_query->the_post();
-            $event_date = get_post_meta(get_the_ID(), '_event_date', true);
-            if ($event_date) {
-                $events[] = [
-                    'title' => get_the_title(),
-                    'date'  => $event_date,
-                    'description' => get_the_excerpt(),
-                ];
-            }
-        }
-    }
-    wp_reset_postdata();
-    ?>
-    const ferroblog_events = <?php echo json_encode($events); ?>;
-    </script>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

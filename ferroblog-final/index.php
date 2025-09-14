@@ -8,12 +8,14 @@
             <h3>Secciones del Blog</h3>
             <div class="secciones-grid">
                 <?php
+                // Función auxiliar para mostrar las secciones de forma segura
                 function display_seccion_card($title, $icon, $categories) {
                     echo '<div class="seccion-card">';
                     echo '<h4>' . esc_html($icon) . ' ' . esc_html($title) . '</h4>';
                     echo '<ul>';
                     foreach ($categories as $slug => $name) {
                         $category = get_category_by_slug($slug);
+                        // Comprobación clave: Solo muestra el enlace si la categoría existe en WordPress
                         if ($category) {
                             echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($name) . '</a></li>';
                         }
@@ -22,22 +24,32 @@
                     echo '</div>';
                 }
 
+                // Definir las secciones y sus categorías
                 display_seccion_card('Líneas', '🚆', [
-                    'ancho_iberico' => 'Ancho ibérico', 'ancho_metrico' => 'Ancho métrico',
-                    'ancho_internacional' => 'Ancho internacional', 'lineas_cerradas' => 'Líneas Cerradas',
+                    'ancho_iberico' => 'Ancho ibérico',
+                    'ancho_metrico' => 'Ancho métrico',
+                    'ancho_internacional' => 'Ancho internacional',
+                    'lineas_cerradas' => 'Líneas Cerradas',
                 ]);
 
                 display_seccion_card('Proyectos', '📋', [
-                    'proyectos_cancelados' => 'Proyectos cancelados', 'proyectos_actuales' => 'Proyectos actuales',
-                    'proyectos_en_marcha' => 'Proyectos en marcha', 'proyectos_estudio' => 'Proyectos en estudio',
+                    'proyectos_cancelados' => 'Proyectos cancelados',
+                    'proyectos_actuales' => 'Proyectos actuales',
+                    'proyectos_en_marcha' => 'Proyectos en marcha',
+                    'proyectos_estudio' => 'Proyectos en estudio',
                 ]);
 
                 display_seccion_card('Desarrollo ciudades', '🏙️', [
-                    'sevilla' => 'Sevilla', 'madrid' => 'Madrid', 'barcelona' => 'Barcelona',
-                    'valencia' => 'Valencia', 'bilbao' => 'Bilbao', 'a_coruna' => 'A Coruña',
+                    'sevilla' => 'Sevilla',
+                    'madrid' => 'Madrid',
+                    'barcelona' => 'Barcelona',
+                    'valencia' => 'Valencia',
+                    'bilbao' => 'Bilbao',
+                    'a_coruna' => 'A Coruña',
                 ]);
-                
-                $estaciones_cat = get_category_by_slug('noticias');
+
+                // Para la sección "Estaciones", asegúrate de que exista una categoría base a la que enlazar
+                $estaciones_cat = get_category_by_slug('noticias'); // Puedes cambiar 'noticias' a un slug más apropiado
                 if ($estaciones_cat) {
                     echo '<div class="seccion-card"><h4>🚉 Estaciones de tren</h4><ul>';
                     echo '<li><a href="' . esc_url(get_category_link($estaciones_cat->term_id)) . '">Mapa por provincias</a></li>';
@@ -53,7 +65,9 @@
                 <article class="post">
                     <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                     <div class="post-meta">📅 <?php the_time('j \d\e F \d\e Y'); ?> — 👤 <?php the_author(); ?></div>
-                    <?php if (has_post_thumbnail()) { the_post_thumbnail('medium'); } ?>
+                    <?php if (has_post_thumbnail()) {
+                        the_post_thumbnail('medium');
+                    } ?>
                     <p><?php echo esc_html(get_the_excerpt()); ?></p>
                 </article>
             <?php endwhile; ?>
