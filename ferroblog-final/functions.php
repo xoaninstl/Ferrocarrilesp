@@ -114,14 +114,56 @@ function ferroblog_create_menus() {
     }
 }
 
+// Función para crear páginas automáticamente
+function ferroblog_create_pages() {
+    $pages_to_create = [
+        'noticias' => [
+            'title' => 'Noticias',
+            'template' => 'template-noticias.php',
+            'content' => 'Página dedicada a las noticias del sector ferroviario español. Aquí encontrarás las últimas novedades, inauguraciones, proyectos y eventos relacionados con el ferrocarril en España.'
+        ],
+        'informacion' => [
+            'title' => 'Información',
+            'template' => 'template-informacion.php',
+            'content' => 'Página de información técnica y detallada sobre el sistema ferroviario español. Aquí encontrarás datos técnicos, características de líneas, estaciones y todo lo relacionado con la infraestructura ferroviaria.'
+        ],
+    ];
+
+    foreach ($pages_to_create as $slug => $page_data) {
+        // Comprobar si la página ya existe
+        if (get_page_by_title($page_data['title']) == null) {
+            $page_id = wp_insert_post([
+                'post_title'   => $page_data['title'],
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => $page_data['content'],
+            ]);
+
+            // Asignar la plantilla personalizada a la página recién creada
+            if ($page_id && !is_wp_error($page_id)) {
+                update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+            }
+        }
+    }
+}
+
 // Crear menús al activar el tema
 add_action('after_switch_theme', 'ferroblog_create_menus');
 
-// También crear menús en init si no existen
+// Crear páginas al activar el tema
+add_action('after_switch_theme', 'ferroblog_create_pages');
+
+// También crear menús y páginas en init si no existen
 add_action('init', function() {
     $locations = get_theme_mod('nav_menu_locations');
     if (empty($locations['primary']) || empty($locations['sidebar'])) {
         ferroblog_create_menus();
+    }
+    
+    // Crear páginas si no existen
+    if (get_page_by_title('Noticias') == null || get_page_by_title('Información') == null) {
+        ferroblog_create_pages();
     }
     
     // Configurar página de inicio si no está configurada correctamente
