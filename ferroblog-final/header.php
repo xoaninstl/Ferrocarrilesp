@@ -9,13 +9,11 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <h1>
-                    <?php if (function_exists('the_custom_logo') && has_custom_logo()) {
-                        the_custom_logo();
-                    } else { ?>
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title"><?php bloginfo('name'); ?></a>
-                    <?php } ?>
-                </h1>
+                <?php if (function_exists('the_custom_logo') && has_custom_logo()) {
+                    the_custom_logo();
+                } else { ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title"><?php bloginfo('name'); ?></a>
+                <?php } ?>
             </div>
             <nav class="nav">
                 <?php
