@@ -1,0 +1,75 @@
+PROBLEMA Y SOLUCIÓN - TEMA FERROBLOG PARA WORDPRESS
+=====================================================
+
+PROBLEMA IDENTIFICADO:
+=====================
+
+El tema WordPress "FerroBlog" tenía varios problemas que impedían su funcionamiento correcto:
+
+1. **ERROR 404 EN ARCHIVOS CSS Y JS:**
+   - WordPress no podía cargar los archivos CSS y JavaScript
+   - Los archivos estaban en subcarpetas (assets/css/, assets/js/)
+   - WordPress esperaba los archivos en la raíz del tema
+
+2. **RUTAS INCORRECTAS EN functions.php:**
+   - get_template_directory_uri() apuntaba a subcarpetas inexistentes
+   - Los archivos CSS y JS no se encontraban en las rutas especificadas
+
+3. **ESTRUCTURA DE CARPETAS INCORRECTA:**
+   - WordPress no reconoce automáticamente archivos en subcarpetas
+   - Los archivos principales deben estar en la raíz del tema
+
+SOLUCIÓN IMPLEMENTADA:
+=====================
+
+1. **REORGANIZACIÓN DE ARCHIVOS:**
+   - Movido style.css a la raíz del tema
+   - Movido script.js a la raíz del tema
+   - Eliminadas las subcarpetas assets/css/ y assets/js/
+
+2. **CORRECCIÓN DE functions.php:**
+   - Cambiadas las rutas de get_template_directory_uri() + '/assets/css/'
+   - Ahora apunta directamente a get_template_directory_uri() + '/'
+   - Los archivos se cargan desde la raíz del tema
+
+3. **CSS EMBEBIDO:**
+   - Todo el CSS se integró en style.css
+   - Eliminados archivos CSS separados (styles.css, noticia.css, informacion.css)
+   - Un solo archivo CSS para mejor rendimiento
+
+4. **ESTRUCTURA FINAL:**
+   ferroblog-final/
+   ├── style.css (con todo el CSS embebido)
+   ├── script.js
+   ├── functions.php (corregido)
+   ├── header.php
+   ├── footer.php
+   ├── index.php
+   ├── sidebar.php
+   ├── single.php
+   ├── category.php
+   ├── archive.php
+   └── debug.php
+
+ARCHIVO FINAL:
+=============
+- ferroblog-listo-para-wordpress.zip
+- Contiene todos los archivos en la estructura correcta
+- Listo para subir e instalar en WordPress
+
+INSTRUCCIONES DE INSTALACIÓN:
+============================
+1. Subir ferroblog-listo-para-wordpress.zip a WordPress
+2. Instalar y activar el tema
+3. Configurar menú principal (Apariencia → Menús)
+4. Presionar Ctrl+F5 para limpiar caché
+
+RESULTADO:
+==========
+✅ Sin errores 404
+✅ CSS y JavaScript cargan correctamente
+✅ Tema completamente funcional
+✅ Estructura profesional y limpia
+
+Fecha: 14/09/2025
+Estado: RESUELTO
