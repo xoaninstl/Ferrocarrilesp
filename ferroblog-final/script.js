@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar funcionalidades del frontend
+    // Inicializar todas las funcionalidades del frontend
     initializeMobileMenu();
-    initializeCalendar(); // Esta función ahora usará los datos de WordPress
+    initializeSearch(); 
+    initializeCalendar(); 
     initializeSidebarToggles();
 });
 
@@ -17,6 +18,86 @@ function initializeMobileMenu() {
             navMenu.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
         });
+    }
+}
+
+// ==================================================================================
+// BÚSQUEDA VISUAL (RESTAURADA)
+// ==================================================================================
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    if (!searchInput || !searchResults) return;
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+        // Esta es una búsqueda visual simple, busca en el texto visible de la página
+        const allTextElements = document.querySelectorAll('h1, h2, h3, h4, p, a, li');
+        let results = [];
+        allTextElements.forEach(el => {
+            if (el.textContent.toLowerCase().includes(query)) {
+                // Evitar duplicados y elementos muy cortos
+                if (!results.some(r => r.text.startsWith(el.textContent.substring(0, 30)))) {
+                    results.push({
+                        text: el.textContent,
+                        element: el
+                    });
+                }
+            }
+        });
+        displaySearchResults(results.slice(0, 8), query); // Limitar a 8 resultados
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+function displaySearchResults(results, query) {
+    const searchResults = document.getElementById('searchResults');
+    if (results.length === 0) {
+        searchResults.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
+        searchResults.style.display = 'block';
+        return;
+    }
+    const resultsHTML = results.map(result => {
+        // Generar un ID si el elemento no lo tiene
+        if (!result.element.id) {
+            result.element.id = 'search-result-' + Math.random().toString(36).substr(2, 9);
+        }
+        return `
+            <div class="search-result-item" onclick="scrollToElement('${result.element.id}')">
+                <div class="search-result-text">${highlightQuery(result.text.substring(0, 70) + '...', query)}</div>
+            </div>`;
+    }).join('');
+    searchResults.innerHTML = resultsHTML;
+    searchResults.style.display = 'block';
+}
+
+function highlightQuery(text, query) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+function scrollToElement(elementId) {
+    const element = document.getElementById(elementId);
+    const searchResults = document.getElementById('searchResults');
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchResults.style.display = 'none'; // Ocultar resultados después de hacer clic
+        // Resaltado temporal
+        element.style.transition = 'background-color 0.5s ease';
+        element.style.backgroundColor = 'rgba(255, 235, 59, 0.5)';
+        setTimeout(() => {
+            element.style.backgroundColor = 'transparent';
+        }, 2000);
     }
 }
 
@@ -128,8 +209,8 @@ function renderCalendar(railwayEvents = []) {
 function initializeSidebarToggles() {
     const sectionHeaders = document.querySelectorAll('.sidebar .section-header');
     sectionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const sectionId = header.parentElement.querySelector('.section-content').id;
+        header.addEventListener('click', (event) => {
+            const sectionId = event.currentTarget.nextElementSibling.id;
             toggleCategorySection(sectionId.replace('-section', ''));
         });
     });

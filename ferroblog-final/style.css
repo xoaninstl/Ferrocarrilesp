@@ -1143,3 +1143,33 @@ body {
     color: #ccc;
     background: #f8f9fa;
 }
+
+/* Estilos para la búsqueda visual */
+.search-result-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-result-text {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.search-result-text mark {
+    background-color: #ffd700;
+    padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+}
+
+.no-results {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
