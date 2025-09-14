@@ -1,17 +1,17 @@
 <?php
 // Cargar estilos y scripts
 add_action('wp_enqueue_scripts', function () {
-    // Enqueue Google Fonts
+    // Cargar Google Fonts
     wp_enqueue_style('google-roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', [], null);
     
-    // Enqueue the main stylesheet
+    // Cargar la hoja de estilos principal (style.css) correctamente
     wp_enqueue_style('ferroblog-style', get_stylesheet_uri());
     
-    // Enqueue the main script
+    // Cargar el script principal (script.js)
     wp_enqueue_script('ferroblog-script', get_template_directory_uri() . '/script.js', [], '1.0', true);
 });
 
-// Soporte para imagen destacada en entradas
+// Soportes del tema
 add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
     add_theme_support('title-tag');
@@ -23,6 +23,7 @@ add_action('after_setup_theme', function () {
     ]);
     register_nav_menus([
         'primary' => __('Menú principal', 'ferroblog'),
+        'sidebar' => __('Menú de la barra lateral', 'ferroblog'), // Menú para enlaces rápidos
         'footer'  => __('Menú pie', 'ferroblog'),
     ]);
 });
@@ -30,20 +31,10 @@ add_action('after_setup_theme', function () {
 // Crear categorías base al activar el tema
 add_action('after_switch_theme', function () {
     $categories = [
-        // Noticias
         'metro', 'tram', 'ave', 'cercanias', 'apertura_linea', 'inicio_obras', 'fin_obras', 'evento_especial', 'mantenimiento', 'aniversario',
-        // Histórico / líneas
         'ancho_iberico', 'ancho_metrico', 'ancho_internacional', 'lineas_cerradas', 'proyectos_cancelados', 'proyectos_actuales', 'proyectos_en_marcha', 'proyectos_estudio',
-        // Ciudades principales de España
-        'sevilla', 'madrid', 'barcelona', 'valencia', 'bilbao', 'a_coruna',
-        'zaragoza', 'malaga', 'murcia', 'palma', 'las_palmas', 'granada',
-        'alicante', 'cordoba', 'valladolid', 'vigo', 'gijon', 'hospitalet',
-        'vitoria', 'coruna', 'elche', 'santa_cruz', 'oviedo', 'santander',
-        'pamplona', 'castellon', 'almeria', 'burgos', 'salamanca', 'alcorcon',
-        'getafe', 'jerez', 'san_sebastian', 'leganes', 'cartagena', 'badalona',
-        'leon', 'cadiz', 'tarragona', 'mataro', 'santa_coloma', 'jaen',
-        'ourense', 'reus', 'torrelavega', 'el_puerto', 'lugo', 'ceuta',
-        'melilla', 'guadalajara', 'pontevedra', 'ferrol', 'aviles', 'gandia'
+        'sevilla', 'madrid', 'barcelona', 'valencia', 'bilbao', 'a_coruna'
+        // Puedes añadir más si lo necesitas
     ];
     foreach ($categories as $slug) {
         if (!term_exists($slug, 'category')) {
@@ -52,4 +43,36 @@ add_action('after_switch_theme', function () {
     }
 });
 
+/**
+ * Modifica la consulta principal de WordPress para aplicar los filtros de categoría del sidebar.
+ * Se activa antes de que se ejecute la consulta principal en páginas de archivo (como categorías).
+ */
+function ferroblog_filter_posts($query) {
+    // Solo actuar en la consulta principal del frontend y en páginas de archivo/categoría
+    if ( !is_admin() && $query->is_main_query() && ( is_category() || is_archive() ) ) {
+        
+        // Comprobar si se han enviado filtros desde el formulario
+        if (isset($_GET['filter_categories']) && is_array($_GET['filter_categories'])) {
+            
+            $selected_categories = array_map('sanitize_text_field', $_GET['filter_categories']);
 
+            // 'tax_query' permite consultas complejas basadas en taxonomías (como las categorías)
+            $tax_query = [
+                'relation' => 'AND', // Exigir que una entrada pertenezca a TODAS las categorías seleccionadas
+            ];
+
+            // Añadir cada categoría seleccionada a la consulta
+            foreach ($selected_categories as $category_slug) {
+                $tax_query[] = [
+                    'taxonomy' => 'category',
+                    'field'    => 'slug',
+                    'terms'    => $category_slug,
+                ];
+            }
+            
+            $query->set('tax_query', $tax_query);
+        }
+    }
+}
+add_action('pre_get_posts', 'ferroblog_filter_posts');
+?>

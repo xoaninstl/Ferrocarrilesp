@@ -875,6 +875,26 @@ body {
         max-width: 300px;
     }
     
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #1A2F0F;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
     .content-wrapper {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -948,4 +968,93 @@ body {
 .custom-logo {
     height: 60px; /* Altura deseada */
     width: auto; /* Ancho automático para mantener la proporción */
+}
+
+/* Estilo para el título del sitio cuando no hay logo personalizado */
+.site-title {
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-title:hover {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+/* Menú móvil */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Resultados de búsqueda */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-result {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.search-result h4 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.search-result h4 a:hover {
+    color: #1A2F0F;
+}
+
+.search-result p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
 }

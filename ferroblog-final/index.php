@@ -69,22 +69,6 @@
                 <?php endif; ?>
             </div>
         </section>
-
-        <!-- Comments Section -->
-        <section class="comments-section">
-            <h3>Comentarios</h3>
-            <div class="comment-form">
-                <div class="form-row">
-                    <input type="text" id="commentName" placeholder="Tu nombre" class="comment-input">
-                    <input type="email" id="commentEmail" placeholder="Tu correo electrónico" class="comment-input">
-                </div>
-                <textarea id="commentText" placeholder="Escribe tu comentario aquí..."></textarea>
-                <button onclick="addComment()" class="btn-comment">Publicar Comentario</button>
-            </div>
-            <div id="commentsList" class="comments-list">
-                <!-- Comments will be loaded here -->
-            </div>
-        </section>
     </div>
     <?php get_sidebar(); ?>
 <?php get_footer(); ?>

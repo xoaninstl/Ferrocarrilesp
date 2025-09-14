@@ -23,215 +23,60 @@
 
     <div class="quick-links">
         <h3>Enlaces Rápidos</h3>
-        <ul>
-            <li><a href="#curiosidades">Curiosidades</a></li>
-            <li><a href="#compra-billetes">Compra de Billetes</a></li>
-            <li><a href="#faq">FAQ - Preguntas Frecuentes</a></li>
-        </ul>
+        <?php
+        wp_nav_menu([
+            'theme_location' => 'sidebar',
+            'container'      => false,
+            'fallback_cb'    => false,
+            'depth'          => 1, // Muestra solo el nivel principal
+        ]);
+        ?>
     </div>
     
-    <!-- Calendario Ferroviario -->
     <div class="railway-calendar">
-        <div class="calendar-content-wrapper">
-            <h3>Calendario Ferroviario</h3>
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <button id="prevMonth" class="calendar-nav">&lt;</button>
-                    <span id="currentMonth">Agosto 2025</span>
-                    <button id="nextMonth" class="calendar-nav">&gt;</button>
-                </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Los días se generan dinámicamente -->
-                </div>
-            </div>
-            
-            <!-- Leyenda de Colores del Calendario -->
-            <div class="calendar-legend">
-                <h4>Leyenda de Eventos</h4>
-                <div class="legend-items">
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #e8f5e8; color: #2e7d32;">A</span>
-                        <span>Apertura de Línea</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #fff3e0; color: #f57c00;">I</span>
-                        <span>Inicio de Obras</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #e3f2fd; color: #1976d2;">F</span>
-                        <span>Fin de Obras</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #fce4ec; color: #c2185b;">E</span>
-                        <span>Evento Especial</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #f3e5f5; color: #7b1fa2;">M</span>
-                        <span>Mantenimiento</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #e0f2f1; color: #00695c;">A</span>
-                        <span>Aniversario</span>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
     
-    <!-- Sistema de Filtrado Avanzado por Categorías -->
     <div class="advanced-filter">
         <h3>🔍 Filtro Avanzado</h3>
-        <p class="filter-description">Selecciona múltiples categorías para encontrar contenido específico</p>
+        <p class="filter-description">Selecciona categorías para afinar tu búsqueda en esta sección.</p>
         
-        <!-- Sección Histórico -->
-        <div class="filter-section">
-            <div class="section-header" onclick="toggleCategorySection('historico')">
-                <h4>📚 Histórico</h4>
-                <span class="toggle-icon">▼</span>
+        <form role="search" method="get" class="search-form" action="<?php echo esc_url(get_category_link(get_queried_object_id())); ?>">
+            
+            <?php
+            $groups = [
+                'Histórico' => ['ancho_iberico', 'ancho_metrico', 'ancho_internacional', 'lineas_cerradas', 'proyectos_cancelados', 'proyectos_actuales', 'proyectos_en_marcha', 'proyectos_estudio'],
+                'Noticias'  => ['noticias', 'metro', 'tram', 'ave', 'cercanias', 'apertura_linea', 'inicio_obras', 'fin_obras', 'evento_especial', 'mantenimiento', 'aniversario', 'cambio_horarios'],
+                'Ciudades'  => ['sevilla', 'madrid', 'barcelona', 'valencia', 'bilbao', 'a_coruna'],
+            ];
+            
+            // Mantener los filtros seleccionados marcados después de enviar el formulario
+            $checked_cats = isset($_GET['filter_categories']) ? $_GET['filter_categories'] : [];
+            ?>
+
+            <?php foreach ($groups as $group_name => $categories) : ?>
+                <div class="filter-section">
+                    <div class="section-header" onclick="toggleCategorySection('<?php echo sanitize_title($group_name); ?>')">
+                        <h4><?php echo esc_html($group_name); ?></h4>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="section-content" id="<?php echo sanitize_title($group_name); ?>-section">
+                        <?php foreach ($categories as $cat_slug) : 
+                            $category = get_category_by_slug($cat_slug);
+                            if ($category) : ?>
+                                <div class="category-checkbox">
+                                    <input type="checkbox" id="<?php echo esc_attr($cat_slug); ?>" name="filter_categories[]" value="<?php echo esc_attr($cat_slug); ?>" <?php checked(in_array($cat_slug, $checked_cats)); ?>>
+                                    <label for="<?php echo esc_attr($cat_slug); ?>"><?php echo esc_html($category->name); ?></label>
+                                </div>
+                            <?php endif;
+                        endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            
+            <div class="filter-controls">
+                <button type="submit" class="btn-filter">Aplicar Filtros</button>
+                <a href="<?php echo esc_url(get_category_link(get_queried_object_id())); ?>" class="btn-clear">Limpiar Filtros</a>
             </div>
-            <div class="section-content" id="historico-section">
-                <div class="category-checkbox">
-                    <input type="checkbox" id="ancho_iberico" value="ancho_iberico" onchange="updateCategoryFilter()">
-                    <label for="ancho_iberico">Ancho Ibérico</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="ancho_metrico" value="ancho_metrico" onchange="updateCategoryFilter()">
-                    <label for="ancho_metrico">Ancho Métrico</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="ancho_internacional" value="ancho_internacional" onchange="updateCategoryFilter()">
-                    <label for="ancho_internacional">Ancho Internacional</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="lineas_cerradas" value="lineas_cerradas" onchange="updateCategoryFilter()">
-                    <label for="lineas_cerradas">Líneas Cerradas</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="proyectos_cancelados" value="proyectos_cancelados" onchange="updateCategoryFilter()">
-                    <label for="proyectos_cancelados">Proyectos Cancelados</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="proyectos_actuales" value="proyectos_actuales" onchange="updateCategoryFilter()">
-                    <label for="proyectos_actuales">Proyectos Actuales</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="proyectos_en_marcha" value="proyectos_en_marcha" onchange="updateCategoryFilter()">
-                    <label for="proyectos_en_marcha">Proyectos en Marcha</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="proyectos_estudio" value="proyectos_estudio" onchange="updateCategoryFilter()">
-                    <label for="proyectos_estudio">Proyectos en Estudio</label>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sección Noticias -->
-        <div class="filter-section">
-            <div class="section-header" onclick="toggleCategorySection('noticias')">
-                <h4>📰 Noticias</h4>
-                <span class="toggle-icon">▼</span>
-            </div>
-            <div class="section-content" id="noticias-section">
-                <div class="category-checkbox">
-                    <input type="checkbox" id="noticias" value="noticias" onchange="updateCategoryFilter()">
-                    <label for="noticias">Noticias</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="metro" value="metro" onchange="updateCategoryFilter()">
-                    <label for="metro">Metro</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="tram" value="tram" onchange="updateCategoryFilter()">
-                    <label for="tram">Tranvía</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="ave" value="ave" onchange="updateCategoryFilter()">
-                    <label for="ave">AVE</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="cercanias" value="cercanias" onchange="updateCategoryFilter()">
-                    <label for="cercanias">Cercanías</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="apertura_linea" value="apertura_linea" onchange="updateCategoryFilter()">
-                    <label for="apertura_linea">Apertura de Línea</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="inicio_obras" value="inicio_obras" onchange="updateCategoryFilter()">
-                    <label for="inicio_obras">Inicio de Obras</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="fin_obras" value="fin_obras" onchange="updateCategoryFilter()">
-                    <label for="fin_obras">Fin de Obras</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="evento_especial" value="evento_especial" onchange="updateCategoryFilter()">
-                    <label for="evento_especial">Evento Especial</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="mantenimiento" value="mantenimiento" onchange="updateCategoryFilter()">
-                    <label for="mantenimiento">Mantenimiento</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="aniversario" value="aniversario" onchange="updateCategoryFilter()">
-                    <label for="aniversario">Aniversario</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="cambio_horarios" value="cambio_horarios" onchange="updateCategoryFilter()">
-                    <label for="cambio_horarios">Cambio de Horarios</label>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sección Ciudades -->
-        <div class="filter-section">
-            <div class="section-header" onclick="toggleCategorySection('ciudades')">
-                <h4>🏙️ Ciudades</h4>
-                <span class="toggle-icon">▼</span>
-            </div>
-            <div class="section-content" id="ciudades-section">
-                <div class="category-checkbox">
-                    <input type="checkbox" id="sevilla" value="sevilla" onchange="updateCategoryFilter()">
-                    <label for="sevilla">Sevilla</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="madrid" value="madrid" onchange="updateCategoryFilter()">
-                    <label for="madrid">Madrid</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="barcelona" value="barcelona" onchange="updateCategoryFilter()">
-                    <label for="barcelona">Barcelona</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="valencia" value="valencia" onchange="updateCategoryFilter()">
-                    <label for="valencia">Valencia</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="bilbao" value="bilbao" onchange="updateCategoryFilter()">
-                    <label for="bilbao">Bilbao</label>
-                </div>
-                <div class="category-checkbox">
-                    <input type="checkbox" id="a_coruna" value="a_coruna" onchange="updateCategoryFilter()">
-                    <label for="a_coruna">A Coruña</label>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Botones de control -->
-        <div class="filter-controls">
-            <button class="btn-filter" onclick="applyCategoryFilter()" disabled>
-                Selecciona categorías
-            </button>
-            <button class="btn-clear" onclick="clearCategoryFilters()">
-                Limpiar Filtros
-            </button>
-        </div>
-        
-        <!-- Resultados del filtrado -->
-        <div id="filterResults" class="filter-results" style="display: none;">
-            <h4>Resultados del Filtrado</h4>
-            <div id="filteredContent"></div>
-        </div>
+        </form>
     </div>
 </aside>
-

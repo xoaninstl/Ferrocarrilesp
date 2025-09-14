@@ -37,6 +37,16 @@
                 </div>
             </div>
         </article>
+
+        <section class="comments-section">
+            <?php
+            // Si los comentarios están abiertos o hay al menos un comentario, se carga la plantilla de comentarios.
+            if ( comments_open() || get_comments_number() ) :
+                comments_template();
+            endif;
+            ?>
+        </section>
+        
         <?php endwhile; endif; ?>
     </div>
     <?php get_sidebar(); ?>
