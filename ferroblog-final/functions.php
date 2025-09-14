@@ -185,4 +185,90 @@ add_action('init', 'ferroblog_force_setup');
 
 // Configurar página de inicio al activar el tema
 add_action('after_switch_theme', 'ferroblog_setup_homepage');
+
+// --- Custom Post Type para Eventos del Calendario ---
+
+function ferroblog_create_event_post_type() {
+    register_post_type('ferroblog_event',
+        [
+            'labels'      => [
+                'name'          => __('Eventos', 'ferroblog'),
+                'singular_name' => __('Evento', 'ferroblog'),
+            ],
+            'public'      => true,
+            'has_archive' => true,
+            'supports'    => ['title', 'editor'], // Soportará título y descripción
+            'menu_icon'   => 'dashicons-calendar-alt', // Icono para el menú
+        ]
+    );
+}
+add_action('init', 'ferroblog_create_event_post_type');
+
+// Añadir un campo personalizado para la fecha del evento
+function ferroblog_add_event_date_meta_box() {
+    add_meta_box(
+        'ferroblog_event_date',
+        'Fecha del Evento',
+        'ferroblog_event_date_callback',
+        'ferroblog_event', // Mostrarlo en nuestro CPT de eventos
+        'side'
+    );
+}
+add_action('add_meta_boxes', 'ferroblog_add_event_date_meta_box');
+
+// HTML para el campo de fecha
+function ferroblog_event_date_callback($post) {
+    wp_nonce_field('ferroblog_save_event_date', 'ferroblog_event_date_nonce');
+    $value = get_post_meta($post->ID, '_event_date', true);
+    echo '<label for="ferroblog_event_date_field">Fecha:</label>';
+    echo '<input type="date" id="ferroblog_event_date_field" name="ferroblog_event_date_field" value="' . esc_attr($value) . '" size="25" />';
+}
+
+// Guardar la fecha del evento
+function ferroblog_save_event_date($post_id) {
+    if (!isset($_POST['ferroblog_event_date_nonce']) || !wp_verify_nonce($_POST['ferroblog_event_date_nonce'], 'ferroblog_save_event_date')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (isset($_POST['post_type']) && 'ferroblog_event' == $_POST['post_type']) {
+        if (!current_user_can('edit_page', $post_id)) {
+            return;
+        }
+    } else {
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+    }
+    if (isset($_POST['ferroblog_event_date_field'])) {
+        update_post_meta($post_id, '_event_date', sanitize_text_field($_POST['ferroblog_event_date_field']));
+    }
+}
+add_action('save_post', 'ferroblog_save_event_date');
+
+// --- Opciones de Redes Sociales en el Personalizador ---
+
+function ferroblog_customize_register($wp_customize) {
+    $wp_customize->add_section('ferroblog_social_section', [
+        'title'    => __('Redes Sociales', 'ferroblog'),
+        'priority' => 130,
+    ]);
+
+    $social_sites = ['twitter' => 'Twitter', 'instagram' => 'Instagram', 'youtube' => 'YouTube'];
+
+    foreach ($social_sites as $slug => $name) {
+        $wp_customize->add_setting("ferroblog_social_{$slug}", [
+            'default'   => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ]);
+
+        $wp_customize->add_control("ferroblog_social_{$slug}", [
+            'label'    => __("{$name} URL", 'ferroblog'),
+            'section'  => 'ferroblog_social_section',
+            'type'     => 'url',
+        ]);
+    }
+}
+add_action('customize_register', 'ferroblog_customize_register');
 ?>

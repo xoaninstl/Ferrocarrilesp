@@ -14,9 +14,15 @@
         <div class="social-links">
             <h5>Redes Sociales</h5>
             <div class="social-icons">
-                <a href="#" id="twitterLink" class="social-icon">Twitter</a>
-                <a href="#" id="instagramLink" class="social-icon">Instagram</a>
-                <a href="#" id="youtubeLink" class="social-icon">YouTube</a>
+                <?php if ($twitter_url = get_theme_mod('ferroblog_social_twitter')) : ?>
+                    <a href="<?php echo esc_url($twitter_url); ?>" id="twitterLink" class="social-icon" target="_blank">Twitter</a>
+                <?php endif; ?>
+                <?php if ($instagram_url = get_theme_mod('ferroblog_social_instagram')) : ?>
+                    <a href="<?php echo esc_url($instagram_url); ?>" id="instagramLink" class="social-icon" target="_blank">Instagram</a>
+                <?php endif; ?>
+                <?php if ($youtube_url = get_theme_mod('ferroblog_social_youtube')) : ?>
+                    <a href="<?php echo esc_url($youtube_url); ?>" id="youtubeLink" class="social-icon" target="_blank">YouTube</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -34,7 +40,14 @@
     </div>
     
     <div class="railway-calendar">
+        <h3>📅 Calendario Ferroviario</h3>
+        <div class="calendar-header">
+            <button id="prevMonth">‹</button>
+            <span id="currentMonth"></span>
+            <button id="nextMonth">›</button>
         </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+    </div>
     
     <div class="advanced-filter">
         <h3>🔍 Filtro Avanzado</h3>

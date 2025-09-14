@@ -1,17 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar funcionalidades que aún son necesarias en el frontend
+    // Inicializar funcionalidades del frontend
     initializeMobileMenu();
-    initializeSearch(); // La búsqueda en tiempo real sigue siendo útil
-    initializeCalendar();
-    
-    // Aplicar configuración del autor (si se sigue usando config.js para ello)
-    // applyAuthorConfig(); 
+    initializeCalendar(); // Esta función ahora usará los datos de WordPress
+    initializeSidebarToggles();
 });
 
 // ==================================================================================
 // MENÚ MÓVIL
 // ==================================================================================
-
 function initializeMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -25,139 +21,131 @@ function initializeMobileMenu() {
 }
 
 // ==================================================================================
-// SISTEMA DE BÚSQUEDA (SE MANTIENE, YA QUE ES UNA BÚSQUEDA VISUAL EN LA PÁGINA)
+// CALENDARIO FERROVIARIO (CONECTADO A WORDPRESS)
 // ==================================================================================
-function initializeSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    
-    if (searchInput && searchResults) {
-        searchInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const posts = document.querySelectorAll('.post, .noticia-article');
-            
-            if (query.length < 2) {
-                searchResults.innerHTML = '';
-                return;
-            }
-            
-            let results = [];
-            posts.forEach(post => {
-                const title = post.querySelector('h4, h2, h3')?.textContent.toLowerCase() || '';
-                const content = post.textContent.toLowerCase();
-                
-                if (title.includes(query) || content.includes(query)) {
-                    results.push({
-                        title: post.querySelector('h4, h2, h3')?.textContent || 'Sin título',
-                        link: post.querySelector('a')?.href || '#',
-                        excerpt: post.querySelector('p')?.textContent?.substring(0, 100) + '...' || ''
-                    });
-                }
-            });
-            
-            if (results.length > 0) {
-                searchResults.innerHTML = results.map(result => `
-                    <div class="search-result">
-                        <h4><a href="${result.link}">${result.title}</a></h4>
-                        <p>${result.excerpt}</p>
-                    </div>
-                `).join('');
-            } else {
-                searchResults.innerHTML = '<p>No se encontraron resultados.</p>';
-            }
-        });
-    }
-}
-
-// ==================================================================================
-// CALENDARIO FERROVIARIO (SE MANTIENE, AUNQUE DEPENDE DE LOCALSTORAGE)
-// ==================================================================================
-
 function initializeCalendar() {
-    const calendarContainer = document.querySelector('.railway-calendar');
-    
-    if (calendarContainer) {
-        // Crear calendario básico
-        const today = new Date();
-        const month = today.getMonth();
-        const year = today.getFullYear();
-        
-        const monthNames = [
-            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-        ];
-        
-        calendarContainer.innerHTML = `
-            <h3>📅 Calendario Ferroviario</h3>
-            <div class="calendar-header">
-                <h4>${monthNames[month]} ${year}</h4>
-            </div>
-            <div class="calendar-grid">
-                <div class="calendar-day">L</div>
-                <div class="calendar-day">M</div>
-                <div class="calendar-day">X</div>
-                <div class="calendar-day">J</div>
-                <div class="calendar-day">V</div>
-                <div class="calendar-day">S</div>
-                <div class="calendar-day">D</div>
-                ${generateCalendarDays(month, year)}
-            </div>
-        `;
+    const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) {
+        // No estamos en una página con el calendario
+        return;
+    }
+
+    // La variable `ferroblog_events` es creada por PHP en footer.php
+    // Comprobamos que exista para evitar errores
+    if (typeof ferroblog_events !== 'undefined') {
+        renderCalendar(ferroblog_events);
+    } else {
+        console.error("Los datos de eventos (ferroblog_events) no fueron encontrados.");
     }
 }
 
-function generateCalendarDays(month, year) {
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = firstDay.getDay();
-    
-    let days = '';
-    
-    // Días vacíos al inicio
-    for (let i = 0; i < startingDay; i++) {
-        days += '<div class="calendar-day empty"></div>';
-    }
-    
-    // Días del mes
-    for (let day = 1; day <= daysInMonth; day++) {
-        const isToday = day === new Date().getDate();
-        days += `<div class="calendar-day ${isToday ? 'today' : ''}">${day}</div>`;
-    }
-    
-    return days;
-}
+function renderCalendar(railwayEvents = []) {
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
 
-// ==================================================================================
-// FUNCIONES AUXILIARES
-// ==================================================================================
+    const calendarGrid = document.getElementById('calendarGrid');
+    const currentMonthSpan = document.getElementById('currentMonth');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
 
-// Función para hacer desplegables las secciones del filtrador
-function toggleCategorySection(sectionName) {
-    const section = document.getElementById(sectionName + '-section');
-    const toggle = event.target.closest('.section-header');
-    
-    if (section && toggle) {
-        const isVisible = section.classList.contains('show');
-        
-        if (isVisible) {
-            section.classList.remove('show');
-            toggle.querySelector('.toggle-icon').textContent = '▼';
-        } else {
-            section.classList.add('show');
-            toggle.querySelector('.toggle-icon').textContent = '▲';
+    function drawCalendar() {
+        const firstDay = new Date(currentYear, currentMonth, 1);
+        const lastDay = new Date(currentYear, currentMonth + 1, 0);
+        const startDate = new Date(firstDay);
+        let dayOfWeek = firstDay.getDay();
+        dayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1; 
+        startDate.setDate(startDate.getDate() - dayOfWeek);
+
+        currentMonthSpan.textContent = new Date(currentYear, currentMonth).toLocaleDateString('es-ES', {
+            month: 'long',
+            year: 'numeric'
+        });
+
+        calendarGrid.innerHTML = '';
+        const weekdays = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+        weekdays.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'calendar-day weekday';
+            dayHeader.textContent = day;
+            calendarGrid.appendChild(dayHeader);
+        });
+
+        for (let i = 0; i < 42; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+
+            if (date.getMonth() === currentMonth) {
+                dayElement.textContent = date.getDate();
+                if (date.toDateString() === new Date().toDateString()) {
+                    dayElement.classList.add('today');
+                }
+
+                const dayEvents = railwayEvents.filter(event => {
+                    const eventDate = new Date(event.date + 'T00:00:00'); // Asegura que la fecha se interprete localmente
+                    return eventDate.toDateString() === date.toDateString();
+                });
+
+                if (dayEvents.length > 0) {
+                    dayElement.classList.add('has-event');
+                    dayElement.setAttribute('data-event-title', dayEvents[0].title);
+                    dayElement.style.backgroundColor = '#e8f5e8'; // Color base para eventos
+                    dayElement.style.fontWeight = 'bold';
+                }
+            } else {
+                dayElement.classList.add('other-month');
+            }
+            calendarGrid.appendChild(dayElement);
         }
     }
+
+    prevMonthBtn.addEventListener('click', () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        drawCalendar();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        drawCalendar();
+    });
+
+    drawCalendar();
 }
 
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
+// ==================================================================================
+// DESPLEGABLES DEL SIDEBAR
+// ==================================================================================
+function initializeSidebarToggles() {
+    const sectionHeaders = document.querySelectorAll('.sidebar .section-header');
+    sectionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const sectionId = header.parentElement.querySelector('.section-content').id;
+            toggleCategorySection(sectionId.replace('-section', ''));
+        });
+    });
+}
+
+function toggleCategorySection(sectionName) {
+    const section = document.getElementById(sectionName + '-section');
+    if (!section) return;
+
+    const toggle = section.previousElementSibling.querySelector('.toggle-icon');
     
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+    if (section.style.display === "block") {
+        section.style.display = "none";
+        toggle.textContent = '▼';
+    } else {
+        section.style.display = "block";
+        toggle.textContent = '▲';
+    }
 }
