@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar todas las funcionalidades del frontend
     initializeMobileMenu();
-    initializeSearch(); 
-    initializeCalendar(); 
+    initializeSearch();
+    initializeCalendar();
     initializeSidebarToggles();
 });
 
@@ -22,26 +22,24 @@ function initializeMobileMenu() {
 }
 
 // ==================================================================================
-// BÚSQUEDA VISUAL (RESTAURADA)
+// BÚSQUEDA VISUAL
 // ==================================================================================
 function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
-
+    
     if (!searchInput || !searchResults) return;
-
+    
     searchInput.addEventListener('input', function() {
         const query = this.value.trim().toLowerCase();
         if (query.length < 2) {
             searchResults.style.display = 'none';
             return;
         }
-        // Esta es una búsqueda visual simple, busca en el texto visible de la página
         const allTextElements = document.querySelectorAll('h1, h2, h3, h4, p, a, li');
         let results = [];
         allTextElements.forEach(el => {
             if (el.textContent.toLowerCase().includes(query)) {
-                // Evitar duplicados y elementos muy cortos
                 if (!results.some(r => r.text.startsWith(el.textContent.substring(0, 30)))) {
                     results.push({
                         text: el.textContent,
@@ -50,7 +48,7 @@ function initializeSearch() {
                 }
             }
         });
-        displaySearchResults(results.slice(0, 8), query); // Limitar a 8 resultados
+        displaySearchResults(results.slice(0, 8), query);
     });
 
     document.addEventListener('click', function(e) {
@@ -68,7 +66,6 @@ function displaySearchResults(results, query) {
         return;
     }
     const resultsHTML = results.map(result => {
-        // Generar un ID si el elemento no lo tiene
         if (!result.element.id) {
             result.element.id = 'search-result-' + Math.random().toString(36).substr(2, 9);
         }
@@ -90,9 +87,11 @@ function scrollToElement(elementId) {
     const element = document.getElementById(elementId);
     const searchResults = document.getElementById('searchResults');
     if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        searchResults.style.display = 'none'; // Ocultar resultados después de hacer clic
-        // Resaltado temporal
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+        searchResults.style.display = 'none';
         element.style.transition = 'background-color 0.5s ease';
         element.style.backgroundColor = 'rgba(255, 235, 59, 0.5)';
         setTimeout(() => {
@@ -107,16 +106,15 @@ function scrollToElement(elementId) {
 function initializeCalendar() {
     const calendarGrid = document.getElementById('calendarGrid');
     if (!calendarGrid) {
-        // No estamos en una página con el calendario
         return;
     }
-
+    
     // La variable `ferroblog_events` es creada por PHP en footer.php
-    // Comprobamos que exista para evitar errores
     if (typeof ferroblog_events !== 'undefined') {
         renderCalendar(ferroblog_events);
     } else {
         console.error("Los datos de eventos (ferroblog_events) no fueron encontrados.");
+        renderCalendar([]); // Dibuja un calendario vacío para evitar errores
     }
 }
 
@@ -124,64 +122,63 @@ function renderCalendar(railwayEvents = []) {
     let currentDate = new Date();
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
-
+    
     const calendarGrid = document.getElementById('calendarGrid');
     const currentMonthSpan = document.getElementById('currentMonth');
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
-
+    
     function drawCalendar() {
-        const firstDay = new Date(currentYear, currentMonth, 1);
-        const lastDay = new Date(currentYear, currentMonth + 1, 0);
-        const startDate = new Date(firstDay);
-        let dayOfWeek = firstDay.getDay();
-        dayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1; 
-        startDate.setDate(startDate.getDate() - dayOfWeek);
-
-        currentMonthSpan.textContent = new Date(currentYear, currentMonth).toLocaleDateString('es-ES', {
+        calendarGrid.innerHTML = ''; // Limpiar calendario
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+        const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+        
+        currentMonthSpan.textContent = firstDayOfMonth.toLocaleDateString('es-ES', {
             month: 'long',
             year: 'numeric'
         });
-
-        calendarGrid.innerHTML = '';
-        const weekdays = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+        
+        // Añadir cabeceras de días de la semana
+        const weekdays = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
         weekdays.forEach(day => {
             const dayHeader = document.createElement('div');
             dayHeader.className = 'calendar-day weekday';
             dayHeader.textContent = day;
             calendarGrid.appendChild(dayHeader);
         });
+        
+        // Calcular huecos al principio del mes
+        let startingDay = firstDayOfMonth.getDay(); // Domingo = 0, Lunes = 1...
+        startingDay = (startingDay === 0) ? 6 : startingDay - 1; // Lunes = 0...
 
-        for (let i = 0; i < 42; i++) {
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + i);
+        for (let i = 0; i < startingDay; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'calendar-day other-month';
+            calendarGrid.appendChild(emptyCell);
+        }
+
+        // Rellenar días del mes
+        for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
 
-            if (date.getMonth() === currentMonth) {
-                dayElement.textContent = date.getDate();
-                if (date.toDateString() === new Date().toDateString()) {
-                    dayElement.classList.add('today');
-                }
+            const today = new Date();
+            if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                dayElement.classList.add('today');
+            }
 
-                const dayEvents = railwayEvents.filter(event => {
-                    const eventDate = new Date(event.date + 'T00:00:00'); // Asegura que la fecha se interprete localmente
-                    return eventDate.toDateString() === date.toDateString();
-                });
-
+            const dayString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const dayEvents = railwayEvents.filter(event => event.date === dayString);
+                
                 if (dayEvents.length > 0) {
-                    dayElement.classList.add('has-event');
-                    dayElement.setAttribute('data-event-title', dayEvents[0].title);
-                    dayElement.style.backgroundColor = '#e8f5e8'; // Color base para eventos
-                    dayElement.style.fontWeight = 'bold';
-                }
-            } else {
-                dayElement.classList.add('other-month');
+                dayElement.classList.add('has-event');
+                dayElement.setAttribute('title', dayEvents.map(e => e.title).join(', '));
             }
             calendarGrid.appendChild(dayElement);
         }
     }
-
+    
     prevMonthBtn.addEventListener('click', () => {
         currentMonth--;
         if (currentMonth < 0) {
@@ -210,23 +207,15 @@ function initializeSidebarToggles() {
     const sectionHeaders = document.querySelectorAll('.sidebar .section-header');
     sectionHeaders.forEach(header => {
         header.addEventListener('click', (event) => {
-            const sectionId = event.currentTarget.nextElementSibling.id;
-            toggleCategorySection(sectionId.replace('-section', ''));
+            const content = event.currentTarget.nextElementSibling;
+            const icon = event.currentTarget.querySelector('.toggle-icon');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.textContent = '▼';
+            } else {
+                content.style.display = "block";
+                icon.textContent = '▲';
+            }
         });
     });
-}
-
-function toggleCategorySection(sectionName) {
-    const section = document.getElementById(sectionName + '-section');
-    if (!section) return;
-
-    const toggle = section.previousElementSibling.querySelector('.toggle-icon');
-    
-    if (section.style.display === "block") {
-        section.style.display = "none";
-        toggle.textContent = '▼';
-    } else {
-        section.style.display = "block";
-        toggle.textContent = '▲';
-    }
 }
