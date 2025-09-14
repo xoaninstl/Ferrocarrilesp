@@ -1,9 +1,13 @@
 <?php
 // Cargar estilos y scripts
 add_action('wp_enqueue_scripts', function () {
+    // Cargar Google Fonts
     wp_enqueue_style('google-roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', [], null);
-    // WordPress automatically loads style.css, which now contains all theme CSS
-    // wp_enqueue_style('ferroblog-base', get_stylesheet_directory_uri() . '/assets/css/base.css', [], '1.0'); // Removed
+    
+    // LÍNEA RESTAURADA: Cargar la hoja de estilos principal (style.css)
+    wp_enqueue_style('ferroblog-style', get_stylesheet_uri());
+    
+    // Cargar el script principal (script.js)
     wp_enqueue_script('ferroblog-script', get_stylesheet_directory_uri() . '/script.js', [], '1.0', true);
 });
 
