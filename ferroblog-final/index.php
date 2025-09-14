@@ -10,39 +10,69 @@
                     <div class="seccion-card">
                         <h4>🚆 Líneas</h4>
                         <ul>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('ancho_iberico')->term_id); ?>">Ancho ibérico</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('ancho_metrico')->term_id); ?>">Ancho métrico</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('ancho_internacional')->term_id); ?>">Ancho internacional</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('lineas_cerradas')->term_id); ?>">Líneas Cerradas</a></li>
+                            <?php $cat = get_category_by_slug('ancho_iberico'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Ancho ibérico</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('ancho_metrico'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Ancho métrico</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('ancho_internacional'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Ancho internacional</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('lineas_cerradas'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Líneas Cerradas</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
                     <div class="seccion-card">
                         <h4>📋 Proyectos</h4>
                         <ul>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('proyectos_cancelados')->term_id); ?>">Proyectos cancelados</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('proyectos_actuales')->term_id); ?>">Proyectos actuales</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('proyectos_en_marcha')->term_id); ?>">Proyectos en marcha</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('proyectos_estudio')->term_id); ?>">Proyectos en estudio</a></li>
+                            <?php $cat = get_category_by_slug('proyectos_cancelados'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Proyectos cancelados</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('proyectos_actuales'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Proyectos actuales</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('proyectos_en_marcha'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Proyectos en marcha</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('proyectos_estudio'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Proyectos en estudio</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
                     <div class="seccion-card">
                         <h4>🏙️ Desarrollo ciudades</h4>
                         <ul>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('sevilla')->term_id); ?>">Sevilla</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('madrid')->term_id); ?>">Madrid</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('barcelona')->term_id); ?>">Barcelona</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('valencia')->term_id); ?>">Valencia</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('bilbao')->term_id); ?>">Bilbao</a></li>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('a_coruna')->term_id); ?>">A Coruña</a></li>
+                            <?php $cat = get_category_by_slug('sevilla'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Sevilla</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('madrid'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Madrid</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('barcelona'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Barcelona</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('valencia'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Valencia</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('bilbao'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Bilbao</a></li>
+                            <?php endif; ?>
+                            <?php $cat = get_category_by_slug('a_coruna'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">A Coruña</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
                     <div class="seccion-card">
                         <h4>🚉 Estaciones de tren</h4>
                         <ul>
-                            <li><a href="<?php echo get_category_link(get_category_by_slug('estaciones')->term_id); ?>">Mapa por provincias</a></li>
+                            <?php $cat = get_category_by_slug('estaciones'); if ($cat) : ?>
+                                <li><a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">Mapa por provincias</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
