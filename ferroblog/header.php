@@ -9,23 +9,21 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <h1>
-                    <?php if (function_exists('the_custom_logo') && has_custom_logo()) {
-                        the_custom_logo();
-                    } else { ?>
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title">
-                            <?php 
-                            // Intentar cargar el logo desde la carpeta images
-                            $logo_path = get_stylesheet_directory_uri() . '/../images/logo-ferrocarril-esp.png';
-                            if (file_exists(get_stylesheet_directory() . '/../images/logo-ferrocarril-esp.png')) {
-                                echo '<img src="' . esc_url($logo_path) . '" alt="Logo Ferrocarril Esp" class="logo-img">';
-                            } else {
-                                echo esc_html(get_bloginfo('name'));
-                            }
-                            ?>
-                        </a>
-                    <?php } ?>
-                </h1>
+                <?php if (function_exists('the_custom_logo') && has_custom_logo()) {
+                    the_custom_logo();
+                } else { ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title">
+                        <?php 
+                        // Intentar cargar el logo desde la carpeta images
+                        $logo_path = get_stylesheet_directory_uri() . '/../images/logo-ferrocarril-esp.png';
+                        if (file_exists(get_stylesheet_directory() . '/../images/logo-ferrocarril-esp.png')) {
+                            echo '<img src="' . esc_url($logo_path) . '" alt="Logo Ferrocarril Esp" class="logo-img">';
+                        } else {
+                            echo esc_html(get_bloginfo('name'));
+                        }
+                        ?>
+                    </a>
+                <?php } ?>
             </div>
             <nav class="nav">
                 <ul class="nav-menu">
