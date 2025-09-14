@@ -4,6 +4,58 @@
 let selectedCategories = [];
 let allContent = [];
 
+// Configuración del calendario (necesaria para el script)
+const CALENDAR_EVENT_TYPES = {
+    apertura_linea: {
+        name: "Apertura de Línea",
+        color: "#e8f5e8",
+        icon: "🚆",
+        description: "Inauguración de nuevas líneas ferroviarias"
+    },
+    inicio_obras: {
+        name: "Inicio de Obras",
+        color: "#fff3e0",
+        icon: "🚧",
+        description: "Comienzo de trabajos de construcción"
+    },
+    fin_obras: {
+        name: "Fin de Obras",
+        color: "#e3f2fd",
+        icon: "✅",
+        description: "Finalización de trabajos de construcción"
+    },
+    evento_especial: {
+        name: "Evento Especial",
+        color: "#fce4ec",
+        icon: "🎉",
+        description: "Eventos únicos y especiales"
+    },
+    mantenimiento: {
+        name: "Mantenimiento",
+        color: "#f3e5f5",
+        icon: "🔧",
+        description: "Trabajos de mantenimiento programados"
+    },
+    aniversario: {
+        name: "Aniversario",
+        color: "#e0f2f1",
+        icon: "🎂",
+        description: "Fechas conmemorativas importantes"
+    },
+    cambio_horarios: {
+        name: "Cambio de Horarios",
+        color: "#fff8e1",
+        icon: "⏰",
+        description: "Modificaciones en los horarios de trenes"
+    },
+    nueva_tecnologia: {
+        name: "Nueva Tecnología",
+        color: "#e8f5e8",
+        icon: "⚡",
+        description: "Implementación de nuevas tecnologías"
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar todas las funcionalidades
     initializeMobileMenu();

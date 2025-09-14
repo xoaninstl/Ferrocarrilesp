@@ -17,6 +17,13 @@ add_action('after_setup_theme', function () {
         'flex-width'  => true,
         'flex-height' => true,
     ]);
+    add_theme_support('html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+    ]);
     register_nav_menus([
         'primary' => __('Menú principal', 'ferroblog'),
         'footer'  => __('Menú pie', 'ferroblog'),
