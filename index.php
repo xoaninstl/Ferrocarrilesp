@@ -194,9 +194,18 @@
                         <div class="social-links">
                             <h5>Redes Sociales</h5>
                             <div class="social-icons">
-                                <a href="#" id="twitterLink" class="social-icon">Twitter</a>
-                                <a href="#" id="instagramLink" class="social-icon">Instagram</a>
-                                <a href="#" id="youtubeLink" class="social-icon">YouTube</a>
+                                <?php
+                                $social_links = ferrocarril_get_user_social_links($author_id);
+                                if (!empty($social_links)) {
+                                    foreach ($social_links as $network => $data) {
+                                        echo '<a href="' . esc_url($data['url']) . '" target="_blank" rel="noopener noreferrer" class="social-icon" title="' . esc_attr($data['name']) . '">';
+                                        echo $data['icon'] . ' ' . esc_html($data['name']);
+                                        echo '</a>';
+                                    }
+                                } else {
+                                    echo '<p style="color: #666; font-style: italic; font-size: 0.9rem;">Configura tus redes sociales en tu perfil de usuario.</p>';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

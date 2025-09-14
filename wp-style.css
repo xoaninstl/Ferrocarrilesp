@@ -222,13 +222,152 @@
     color: white;
 }
 
-/* Avatar de autor */
+/* Perfil de autor mejorado */
+.author-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    border-left: 4px solid #2d3748;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.author-box h3 {
+    color: #2d3748;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #2d3748;
+    padding-bottom: 0.5rem;
+}
+
+.author-profile {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.author-avatar-container {
+    flex-shrink: 0;
+}
+
 .author-avatar {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #2d3748;
+    border: 3px solid #2d3748;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    color: #2d3748;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.author-bio {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+}
+
+.author-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.author-social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: #ffffff;
+    color: #2d3748;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.author-social-links a:hover {
+    background: #2d3748;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Responsive para perfil de autor */
+@media (max-width: 768px) {
+    .author-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .author-social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .author-box {
+        padding: 1rem;
+    }
+
+    .author-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .author-social-links a {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Estilos específicos para el sidebar de la home */
+.sidebar .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.sidebar .social-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: #ffffff;
+    color: #2d3748;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.sidebar .social-icon:hover {
+    background: #2d3748;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Responsive para sidebar de home */
+@media (max-width: 768px) {
+    .sidebar .social-icons {
+        justify-content: center;
+    }
 }
 
 /* Breadcrumbs de WordPress */
