@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos en Estudio - Blog Ferrocarriles</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/Icono web.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="../images/logo-ferrocarril-esp.png" alt="Logo Blog Ferrocarril">
+                <h1>Blog Ferrocarriles</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../lineas/ancho-iberico.html">Ancho ibérico</a></li>
+                    <li><a href="../proyectos/proyectos-estudio.html">Proyectos en estudio</a></li>
+                    <li><a href="../desarrollo-ciudades/sevilla.html">Sevilla</a></li>
+                    <li><a href="../estaciones-tren/mapa-provincias.html">Mapa por provincias</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="category-header">
+                <h2>📋 Proyectos en Estudio</h2>
+                <p>Descubre los proyectos ferroviarios que están siendo analizados y evaluados</p>
+            </div>
+
+            <!-- Filtro de categorías adicionales -->
+            <div class="additional-filters">
+                <h3>Filtrar por categorías adicionales:</h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" value="ave" onchange="filterByAdditionalCategory()"> AVE</label>
+                    <label><input type="checkbox" value="metro" onchange="filterByAdditionalCategory()"> Metro</label>
+                    <label><input type="checkbox" value="cercanias" onchange="filterByAdditionalCategory()"> Cercanías</label>
+                    <label><input type="checkbox" value="madrid" onchange="filterByAdditionalCategory()"> Madrid</label>
+                    <label><input type="checkbox" value="sevilla" onchange="filterByAdditionalCategory()"> Sevilla</label>
+                    <label><input type="checkbox" value="barcelona" onchange="filterByAdditionalCategory()"> Barcelona</label>
+                </div>
+            </div>
+
+            <!-- Contenido filtrado -->
+            <div id="filteredContent" class="filtered-content">
+                <!-- El contenido se cargará dinámicamente -->
+            </div>
+
+            <!-- Botón para volver -->
+            <div class="back-button">
+                <a href="../index.html" class="btn btn-primary">← Volver al Inicio</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Blog Ferrocarriles. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Script específico para esta página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar contenido de la categoría "proyectos_estudio"
+            loadCategoryContent('proyectos_estudio');
+        });
+
+        function loadCategoryContent(category) {
+            try {
+                const savedContent = localStorage.getItem('allContent');
+                if (savedContent) {
+                    const allContent = JSON.parse(savedContent);
+                    const categoryContent = allContent.filter(item => 
+                        item.categories.includes(category)
+                    );
+                    
+                    if (categoryContent.length > 0) {
+                        displayCategoryContent(categoryContent);
+                    } else {
+                        document.getElementById('filteredContent').innerHTML = 
+                            '<p class="no-content">No hay contenido disponible para esta categoría.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error al cargar contenido:', error);
+            }
+        }
+
+        function displayCategoryContent(content) {
+            const container = document.getElementById('filteredContent');
+            
+            const contentHTML = content.map(item => `
+                <div class="content-item">
+                    <div class="item-header">
+                        <h3 class="item-title">${item.title}</h3>
+                        <span class="item-date">${formatDate(item.date)}</span>
+                    </div>
+                    <p class="item-excerpt">${item.content}</p>
+                    <div class="item-categories">
+                        ${item.categories.map(cat => `<span class="item-category">${getCategoryDisplayName(cat)}</span>`).join('')}
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-author">Por: ${item.author}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = contentHTML;
+        }
+
+        function filterByAdditionalCategory() {
+            const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(cb => cb.value);
+            
+            if (selectedCategories.length === 0) {
+                // Si no hay categorías adicionales seleccionadas, mostrar solo proyectos_estudio
+                loadCategoryContent('proyectos_estudio');
+                return;
+            }
+            
+            // Filtrar por proyectos_estudio + categorías adicionales
+            try {
+                const savedContent = localStorage.getItem('allContent');
+                if (savedContent) {
+                    const allContent = JSON.parse(savedContent);
+                    const filteredContent = allContent.filter(item => 
+                        item.categories.includes('proyectos_estudio') && 
+                        selectedCategories.every(cat => item.categories.includes(cat))
+                    );
+                    
+                    if (filteredContent.length > 0) {
+                        displayCategoryContent(filteredContent);
+                    } else {
+                        document.getElementById('filteredContent').innerHTML = 
+                            '<p class="no-content">No hay contenido que combine las categorías seleccionadas.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error al filtrar contenido:', error);
+            }
+        }
+
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                return dateString;
+            }
+        }
+
+        function getCategoryDisplayName(category) {
+            const categoryNames = {
+                'proyectos_estudio': 'Proyectos en Estudio',
+                'ave': 'AVE',
+                'metro': 'Metro',
+                'cercanias': 'Cercanías',
+                'madrid': 'Madrid',
+                'sevilla': 'Sevilla',
+                'barcelona': 'Barcelona'
+            };
+            return categoryNames[category] || category;
+        }
+    </script>
+</body>
+</html>

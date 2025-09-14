@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Calendario</title>
+    <style>
+        .railway-calendar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem;
+            max-width: 400px;
+        }
+
+        .railway-calendar h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .calendar-container {
+            width: 100%;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-nav {
+            background: #f0dfd0;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav:hover {
+            background: #e6d3c0;
+            transform: scale(1.1);
+        }
+
+        #currentMonth {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #f8f9fa;
+        }
+
+        .calendar-day.has-event {
+            background: #ff6b6b;
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-day.has-event:hover {
+            background: #ff5252;
+            transform: scale(1.1);
+        }
+
+        .calendar-day.other-month {
+            color: #ccc;
+        }
+
+        .calendar-day.today {
+            border: 2px solid #f0dfd0;
+            font-weight: bold;
+        }
+
+        .calendar-day.weekday {
+            font-weight: bold;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="railway-calendar">
+        <h3>📅 Calendario Ferroviario</h3>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth" class="calendar-nav">&lt;</button>
+                <span id="currentMonth">Agosto 2025</span>
+                <button id="nextMonth" class="calendar-nav">&gt;</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Los días se generan dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calendario Ferroviario
+        function initializeCalendar() {
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            
+            // Eventos ferroviarios (ejemplo)
+            const railwayEvents = [
+                { date: '2025-08-25', title: 'Inauguración Metro Sevilla Línea 3', url: '#metro-sevilla' },
+                { date: '2025-09-15', title: 'Nuevo AVE Madrid-Barcelona', url: '#ave-madrid-barcelona' },
+                { date: '2025-10-01', title: 'Exposición Trenes Históricos', url: '#exposicion-trenes' },
+                { date: '2025-12-10', title: 'Aniversario Ferrocarril Español', url: '#aniversario' }
+            ];
+            
+            // Elementos del DOM
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentMonthSpan = document.getElementById('currentMonth');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            
+            if (!calendarGrid || !currentMonthSpan || !prevMonthBtn || !nextMonthBtn) {
+                console.error('Elementos del calendario no encontrados');
+                return;
+            }
+            
+            // Event listeners
+            prevMonthBtn.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar();
+            });
+            
+            function renderCalendar() {
+                const firstDay = new Date(currentYear, currentMonth, 1);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+                
+                currentMonthSpan.textContent = new Date(currentYear, currentMonth).toLocaleDateString('es-ES', {
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                calendarGrid.innerHTML = '';
+                
+                // Días de la semana
+                const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+                weekdays.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'calendar-day weekday';
+                    dayHeader.textContent = day;
+                    calendarGrid.appendChild(dayHeader);
+                });
+                
+                // Días del mes
+                for (let i = 0; i < 42; i++) {
+                    const date = new Date(startDate);
+                    date.setDate(startDate.getDate() + i);
+                    
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    
+                    if (date.getMonth() === currentMonth) {
+                        dayElement.textContent = date.getDate();
+                        
+                        // Marcar día actual
+                        if (date.toDateString() === new Date().toDateString()) {
+                            dayElement.classList.add('today');
+                        }
+                        
+                        // Marcar días con eventos
+                        const eventDate = date.toISOString().split('T')[0];
+                        const event = railwayEvents.find(e => e.date === eventDate);
+                        
+                        if (event) {
+                            dayElement.classList.add('has-event');
+                            dayElement.setAttribute('data-event', event.title);
+                            dayElement.addEventListener('click', () => {
+                                alert(`Evento: ${event.title}`);
+                            });
+                        }
+                    } else {
+                        dayElement.textContent = date.getDate();
+                        dayElement.classList.add('other-month');
+                    }
+                    
+                    calendarGrid.appendChild(dayElement);
+                }
+            }
+            
+            // Renderizar calendario inicial
+            renderCalendar();
+        }
+        
+        // Inicializar cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', initializeCalendar);
+    </script>
+</body>
+</html>

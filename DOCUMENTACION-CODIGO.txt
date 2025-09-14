@@ -1,0 +1,842 @@
+# GUÍA DE PERSONALIZACIÓN - BLOG FERROCARRIL ESP
+
+## 📋 ÍNDICE
+1. CAMBIAR INFORMACIÓN PERSONAL
+2. CAMBIAR FOTO DEL AUTOR
+3. CAMBIAR BIOGRAFÍA
+4. CONFIGURAR REDES SOCIALES
+5. PERSONALIZAR SISTEMA DE CATEGORÍAS
+6. CAMBIAR TEXTO DEL SITIO
+7. CAMBIAR INFORMACIÓN DEL FAQ
+8. CAMBIAR LOGO DEL SITIO
+9. CAMBIAR IMAGEN DE FONDO
+10. CAMBIAR TÍTULO Y DESCRIPCIÓN
+11. PERSONALIZAR CALENDARIO FERROVIARIO
+12. USAR PLANTILLAS DE NOTICIAS E INFORMACIÓN
+
+---
+
+## 👤 1. CAMBIAR INFORMACIÓN PERSONAL
+
+### **ARCHIVO A MODIFICAR:** `config.js`
+
+### **QUÉ CAMBIAR:**
+- Tu nombre real
+- Tu biografía personal
+- Tu foto de perfil
+
+### **CÓMO HACERLO:**
+1. Abre el archivo `config.js` con cualquier editor de texto
+2. Busca la sección `AUTHOR_CONFIG`
+3. Cambia los valores por los tuyos
+4. Guarda el archivo
+5. Recarga la página del blog
+
+### **EJEMPLO:**
+```javascript
+const AUTHOR_CONFIG = {
+    name: "Tu Nombre Real Aquí", // ← CAMBIAR AQUÍ
+    bio: "Tu biografía personal aquí...", // ← CAMBIAR AQUÍ
+    photo: "images/tu-foto.jpg", // ← CAMBIAR AQUÍ
+    // ... resto de configuración
+};
+```
+
+---
+
+## 📸 2. CAMBIAR FOTO DEL AUTOR
+
+### **OPCIÓN 1: FOTO LOCAL (RECOMENDADA)**
+
+#### **PASOS:**
+1. **Preparar tu foto:**
+   - Formato: JPG, PNG o WebP
+   - Tamaño recomendado: 200x200 píxeles
+   - Calidad: Buena pero no muy pesada
+
+2. **Colocar la foto:**
+   - Crea una carpeta `images` en el directorio del blog
+   - Guarda tu foto en esa carpeta
+   - Ejemplo: `images/mi-foto.jpg`
+
+3. **Configurar en config.js:**
+   - Cambia `photo: "images/tu-foto.jpg"`
+   - Por `photo: "images/mi-foto.jpg"`
+
+#### **OPCIÓN 2: FOTO DE INTERNET**
+1. Sube tu foto a Imgur, Google Drive o similar
+2. Copia la URL de la imagen
+3. En `config.js`, cambia por: `photo: "https://url-de-tu-foto.jpg"`
+
+---
+
+## 📝 3. CAMBIAR BIOGRAFÍA
+
+### **QUÉ ESCRIBIR:**
+- Tu pasión por el ferrocarril
+- Tu experiencia o formación
+- Qué quieres compartir con los visitantes
+- Tu enfoque o especialidad
+
+### **LONGITUD RECOMENDADA:**
+- **Corta:** 1-2 frases
+- **Media:** 2-3 frases  
+- **Larga:** 3-4 frases
+
+### **EJEMPLOS:**
+- **Corta:** "Apasionado del ferrocarril español. Comparto la fascinante historia y actualidad de nuestro sistema ferroviario."
+- **Media:** "Ingeniero ferroviario con experiencia en proyectos del sector. Apasionado por la historia del tren en España."
+- **Larga:** "Apasionado del ferrocarril español desde la infancia. Con formación en ingeniería civil y experiencia en proyectos ferroviarios. Comparto contigo la evolución de nuestro sistema ferroviario."
+
+---
+
+## 🔗 4. CONFIGURAR REDES SOCIALES
+
+### **ARCHIVO A MODIFICAR:** `config.js`
+
+### **REDES SOCIALES DISPONIBLES:**
+- Twitter/X
+- Instagram
+- YouTube
+- LinkedIn
+
+### **CÓMO CONFIGURAR CADA UNA:**
+
+#### **TWITTER/X:**
+1. Ve a tu perfil de Twitter
+2. Copia la URL completa
+3. **Formato correcto:** `https://twitter.com/tu-usuario`
+4. En `config.js`, cambia: `twitter: "https://twitter.com/tu-usuario"`
+
+#### **INSTAGRAM:**
+1. Ve a tu perfil de Instagram
+2. Copia la URL completa
+3. **Formato correcto:** `https://instagram.com/tu-usuario`
+4. En `config.js`, cambia: `instagram: "https://instagram.com/tu-usuario"`
+
+#### **YOUTUBE:**
+1. Ve a tu canal de YouTube
+2. Copia la URL completa
+3. **Formato correcto:** `https://youtube.com/@tu-canal`
+4. En `config.js`, cambia: `youtube: "https://youtube.com/@tu-canal"`
+
+#### **LINKEDIN:**
+1. Ve a tu perfil de LinkedIn
+2. Copia la URL completa
+3. **Formato correcto:** `https://linkedin.com/in/tu-perfil`
+4. En `config.js`, cambia: `linkedin: "https://linkedin.com/in/tu-perfil"`
+
+### **SI NO TIENES ALGUNA RED SOCIAL:**
+- Deja vacío: `twitter: ""`
+- O comenta la línea: `// twitter: "..."`
+
+---
+
+## 🏷️ 5. PERSONALIZAR SISTEMA DE CATEGORÍAS
+
+### **ARCHIVOS A MODIFICAR:** `index.html` y `script.js`
+
+### **QUÉ SON LAS CATEGORÍAS:**
+Las categorías son etiquetas que permiten clasificar y filtrar el contenido del blog. Cada entrada puede tener múltiples categorías.
+
+### **CÓMO FUNCIONA:**
+1. **Selección múltiple:** Puedes seleccionar varias categorías a la vez
+2. **Filtrado inteligente:** El sistema encuentra contenido que tenga TODAS las categorías seleccionadas
+3. **Resultados en tiempo real:** Los resultados se muestran inmediatamente
+
+### **CATEGORÍAS DISPONIBLES:**
+
+#### **LÍNEAS:**
+- ancho_iberico
+- ancho_metrico
+- ancho_internacional
+- metro
+- tram
+- ave
+- cercanias
+
+#### **PROYECTOS:**
+- proyectos_cancelados
+- proyectos_actuales
+- proyectos_en_marcha
+- proyectos_estudio
+
+#### **CIUDADES:**
+- sevilla
+- madrid
+- barcelona
+- valencia
+- bilbao
+
+#### **TIPOS DE CONTENIDO:**
+- historia
+- noticias
+- tecnologia
+- curiosidades
+
+### **CÓMO AÑADIR NUEVAS CATEGORÍAS:**
+
+#### **PASO 1: Añadir en HTML**
+En `index.html`, busca la sección de categorías y añade:
+
+```html
+<label class="category-checkbox">
+    <input type="checkbox" value="tu_nueva_categoria" onchange="updateCategoryFilter()">
+    <span>Nombre de tu categoría</span>
+</label>
+```
+
+#### **PASO 2: Añadir en JavaScript**
+En `script.js`, busca la función `getCategoryDisplayName` y añade:
+
+```javascript
+'tu_nueva_categoria': 'Nombre de tu categoría',
+```
+
+#### **PASO 3: Añadir contenido con la categoría**
+En `script.js`, busca la función `addSampleContent` y añade una nueva entrada:
+
+```javascript
+{
+    id: 'sample_nuevo',
+    title: "Título de tu entrada",
+    content: "Contenido de tu entrada...",
+    categories: ["tu_nueva_categoria", "otra_categoria"],
+    date: "2025-01-01",
+    author: "Tu Nombre"
+}
+```
+
+### **CÓMO PERSONALIZAR LAS CATEGORÍAS EXISTENTES:**
+
+#### **CAMBIAR NOMBRES:**
+1. En `index.html`, cambia el texto dentro de `<span>`
+2. En `script.js`, cambia el valor en `getCategoryDisplayName`
+
+#### **REORGANIZAR GRUPOS:**
+1. En `index.html`, mueve las categorías entre grupos
+2. Cambia los títulos de los grupos (`<h4>`)
+
+#### **AÑADIR NUEVOS GRUPOS:**
+```html
+<div class="category-group">
+    <h4>Tu Nuevo Grupo</h4>
+    <div class="category-checkboxes">
+        <!-- Tus categorías aquí -->
+    </div>
+</div>
+```
+
+---
+
+## ✏️ 6. CAMBIAR TEXTO DEL SITIO
+
+### **ARCHIVO A MODIFICAR:** `index.html`
+
+### **QUÉ PUEDES CAMBIAR:**
+
+#### **TÍTULO PRINCIPAL:**
+- Busca: `<h2>Blog Ferrocarril Esp</h2>`
+- Cambia por tu título personalizado
+
+#### **DESCRIPCIÓN DEL BLOG:**
+- Busca la descripción principal
+- Cambia por tu descripción personal
+
+#### **TEXTO DE LAS SECCIONES:**
+- Busca cada sección y cambia el texto
+- Mantén la estructura HTML
+
+#### **ENLACES DEL MENÚ:**
+- Busca los enlaces en `<nav class="nav">`
+- Cambia los textos pero mantén los `href="#..."`
+
+---
+
+## ❓ 7. CAMBIAR INFORMACIÓN DEL FAQ
+
+### **ARCHIVO A MODIFICAR:** `index.html`
+
+### **UBICACIÓN:**
+Busca la sección `<div class="faq-list">` en el footer
+
+### **QUÉ CAMBIAR:**
+- Preguntas del FAQ
+- Respuestas del FAQ
+- Añadir nuevas preguntas
+- Eliminar preguntas existentes
+
+### **ESTRUCTURA DE UNA PREGUNTA:**
+```html
+<div class="faq-item">
+    <h5>Tu pregunta aquí</h5>
+    <p>Tu respuesta aquí</p>
+</div>
+```
+
+### **EJEMPLOS DE PREGUNTAS PERSONALIZADAS:**
+- ¿Cuál es tu experiencia en el sector ferroviario?
+- ¿Qué te apasiona del ferrocarril español?
+- ¿Cómo empezaste tu interés por los trenes?
+- ¿Qué proyectos te gustaría compartir?
+
+---
+
+## 🖼️ 8. CAMBIAR LOGO DEL SITIO
+
+### **ARCHIVO A MODIFICAR:** `index.html`
+
+### **UBICACIÓN:**
+Busca: `<img src="images/logo-ferrocarril-esp.png" alt="Logo Ferrocarril Esp" class="logo-img">`
+
+### **CÓMO CAMBIARLO:**
+1. **Coloca tu logo:**
+   - Guarda tu imagen en la carpeta `images/`
+   - Formatos soportados: PNG, JPG, WebP
+
+2. **Cambia la ruta:**
+   - Cambia `src="images/logo-ferrocarril-esp.png"`
+   - Por `src="images/tu-logo.png"`
+
+3. **Cambia el texto alternativo:**
+   - Cambia `alt="Logo Ferrocarril Esp"`
+   - Por `alt="Tu Logo"`
+
+### **CÓMO CAMBIAR LA FOTO DEL AUTOR:**
+1. **Coloca tu foto:**
+   - Guarda tu foto en la carpeta `images/`
+   - Formatos soportados: JPG, PNG, WebP
+   - Tamaño recomendado: 200x200 píxeles
+
+2. **Cambia la ruta:**
+   - Cambia `src="images/autor-foto.jpg"`
+   - Por `src="images/tu-foto.jpg"`
+
+3. **Cambia el texto alternativo:**
+   - Cambia `alt="Foto del autor"`
+   - Por `alt="Tu Nombre"`
+
+### **TAMAÑO RECOMENDADO:**
+- Ancho: 180px
+- Alto: 120px
+- Formato: PNG con transparencia (recomendado)
+
+---
+
+## 🎨 9. CAMBIAR IMAGEN DE FONDO
+
+### **ARCHIVO A MODIFICAR:** `styles.css`
+
+### **UBICACIÓN:**
+Busca: `background-image: url('images/fondo-blog.jpg');`
+
+### **CÓMO CAMBIARLA:**
+1. **Coloca tu imagen:**
+   - Guarda tu imagen en la carpeta `images/`
+   - Formatos soportados: JPG, PNG, WebP
+
+2. **Cambia la ruta:**
+   - Cambia `url('images/fondo-blog.jpg')`
+   - Por `url('images/tu-fondo.jpg')`
+
+### **RECOMENDACIONES:**
+- **Tamaño:** 1920x1080 píxeles o similar
+- **Formato:** JPG para mejor rendimiento
+- **Calidad:** Buena pero no muy pesada
+- **Estilo:** Imagen que no interfiera con el texto
+
+---
+
+## 📝 10. CAMBIAR TÍTULO Y DESCRIPCIÓN
+
+### **ARCHIVO A MODIFICAR:** `index.html`
+
+### **TÍTULO DE LA PÁGINA:**
+Busca: `<title>Blog Ferrocarril Esp</title>`
+Cambia por: `<title>Tu Título Personalizado</title>`
+
+### **DESCRIPCIÓN META:**
+Busca: `<meta name="description" content="...">`
+Cambia por tu descripción personalizada
+
+### **PALABRAS CLAVE:**
+Busca: `<meta name="keywords" content="...">`
+Cambia por tus palabras clave
+
+---
+
+## 📅 11. PERSONALIZAR CALENDARIO FERROVIARIO
+
+### **ARCHIVOS A MODIFICAR:** `script.js`
+
+### **QUÉ ES:**
+El calendario muestra eventos ferroviarios organizados por categorías. Cada evento puede tener múltiples categorías.
+
+### **CÓMO AÑADIR NUEVOS EVENTOS:**
+
+#### **PASO 1: Añadir evento en JavaScript**
+En `script.js`, busca la función `initializeCalendar` y añade:
+
+```javascript
+addCalendarEvent('2025-12-25', 'Tu evento aquí', 'categoria_evento', '#enlace-opcional');
+```
+
+#### **PASO 2: Categorías de eventos disponibles:**
+- apertura_linea
+- inicio_obras
+- fin_obras
+- evento_especial
+- mantenimiento
+- aniversario
+- cambio_horarios
+- nueva_tecnologia
+
+#### **PASO 3: Personalizar colores del calendario**
+En `styles.css`, busca `.calendar-legend` y cambia los colores:
+
+```css
+.legend-color {
+    background-color: #tu-color;
+    color: #tu-color-texto;
+}
+```
+
+### **CÓMO AÑADIR NUEVAS CATEGORÍAS DE EVENTOS:**
+
+1. **En HTML:** Añade en la leyenda del calendario
+2. **En JavaScript:** Añade en `getCategoryDisplayName`
+3. **En CSS:** Añade estilos para la nueva categoría
+
+---
+
+## ✅ **PASOS GENERALES PARA CUALQUIER CAMBIO**
+
+### **1. HACER EL CAMBIO:**
+- Abre el archivo correspondiente
+- Busca el texto o elemento a cambiar
+- Haz el cambio
+- Guarda el archivo
+
+### **2. VERIFICAR EL CAMBIO:**
+- Recarga la página del blog (F5)
+- Verifica que el cambio se ve correctamente
+- Prueba en diferentes dispositivos si es posible
+
+### **3. SOLUCIÓN DE PROBLEMAS:**
+- Si algo no funciona, verifica que guardaste el archivo
+- Si hay errores, verifica la sintaxis
+- Recarga la página después de cada cambio
+
+---
+
+## 🚫 **QUÉ NO CAMBIAR (PARA EVITAR PROBLEMAS)**
+
+### **NO CAMBIES:**
+- Nombres de clases CSS (como `class="header"`)
+- IDs de elementos (como `id="main"`)
+- Estructura HTML básica
+- Nombres de archivos JavaScript
+- Nombres de archivos CSS
+- Funciones JavaScript existentes (solo añade nuevas)
+
+### **SÍ PUEDES CAMBIAR:**
+- Textos y contenido
+- Imágenes y logos
+- Colores (en `styles.css`)
+- Enlaces y URLs
+- Títulos y descripciones
+- Categorías y sus nombres
+- Eventos del calendario
+
+---
+
+## 🎯 **RESUMEN DE PERSONALIZACIÓN**
+
+### **Archivos principales para personalizar:**
+- ✅ **`config.js`** - Información personal y redes sociales
+- ✅ **`index.html`** - Textos, títulos, FAQ, logo, categorías
+- ✅ **`script.js`** - Categorías, eventos del calendario
+- ✅ **`styles.css`** - Colores e imagen de fondo
+
+### **Elementos personalizables:**
+- ✅ Tu nombre y biografía
+- ✅ Tu foto de perfil
+- ✅ Tus redes sociales
+- ✅ Sistema de categorías completo
+- ✅ Textos del sitio
+- ✅ Preguntas del FAQ
+- ✅ Logo del sitio
+- ✅ Imagen de fondo
+- ✅ Título y descripción
+- ✅ Calendario ferroviario
+- ✅ Eventos y categorías
+
+---
+
+## 🚀 **FUNCIONALIDADES AVANZADAS**
+
+### **Sistema de Filtrado Múltiple:**
+- Selecciona varias categorías a la vez
+- Encuentra contenido que tenga todas las categorías seleccionadas
+- Resultados en tiempo real
+- Vista previa del contenido filtrado
+
+### **Gestión de Contenido:**
+- Cada entrada puede tener múltiples categorías
+- Sistema de IDs únicos para cada entrada
+- Fechas automáticas
+- Autor personalizable
+
+### **Calendario Inteligente:**
+- Eventos organizados por categorías
+- Colores diferenciados por tipo de evento
+- Navegación entre meses
+- Eventos persistentes en localStorage
+
+---
+
+---
+
+## 📰 12. USAR PLANTILLAS DE NOTICIAS E INFORMACIÓN
+
+### **QUÉ SON LAS PLANTILLAS:**
+Las plantillas son archivos HTML predefinidos que te permiten crear contenido estructurado de manera rápida y consistente. Hay dos tipos:
+
+1. **Plantilla de Noticia** (`noticias/plantilla-noticia.html`)
+2. **Plantilla de Información** (`informacion/plantilla-informacion.html`)
+
+### **CARACTERÍSTICAS DE LAS PLANTILLAS:**
+- ✅ Fondo blanco con colores adicionales (diferente al inicio)
+- ✅ Estructura completa: título, descripción, imagen, texto, fecha, copyright, categorías
+- ✅ Sidebar con widgets recomendados
+- ✅ Diseño responsive
+- ✅ Sistema de categorías integrado
+
+---
+
+### **📰 PLANTILLA DE NOTICIA**
+
+#### **UBICACIÓN:** `noticias/plantilla-noticia.html`
+
+#### **CÓMO USARLA:**
+1. **Copia la plantilla:**
+   - Copia `noticias/plantilla-noticia.html`
+   - Renómbrala con el nombre de tu noticia
+   - Ejemplo: `noticias/nueva-linea-ave-madrid-sevilla.html`
+
+2. **Personaliza el contenido:**
+   - **Título:** Cambia "TÍTULO DE LA NOTICIA AQUÍ"
+   - **Descripción:** Escribe un resumen breve
+   - **Imagen:** Cambia la ruta de la imagen
+   - **Contenido:** Desarrolla la noticia completa
+   - **Fecha:** Actualiza la fecha de publicación
+   - **Autor:** Cambia "Tu Nombre" por tu nombre real
+   - **Categorías:** Selecciona las categorías apropiadas
+
+#### **ESTRUCTURA DE LA PLANTILLA:**
+```html
+<!-- Título -->
+<h1 class="article-title">TÍTULO DE LA NOTICIA AQUÍ</h1>
+
+<!-- Meta información -->
+<div class="article-meta">
+    <span class="article-date">📅 15 de Enero de 2025</span>
+    <span class="article-author">👤 Por Tu Nombre</span>
+</div>
+
+<!-- Descripción corta -->
+<div class="article-description">
+    <p>Descripción breve de la noticia...</p>
+</div>
+
+<!-- Imagen principal -->
+<div class="article-image">
+    <img src="../images/ejemplo-noticia.jpg" alt="Descripción" class="main-image">
+    <p class="image-caption">Pie de foto</p>
+</div>
+
+<!-- Contenido principal -->
+<div class="article-content">
+    <p>Desarrollo de la noticia...</p>
+    <h2>Subtítulo</h2>
+    <p>Más contenido...</p>
+</div>
+
+<!-- Copyright -->
+<div class="article-copyright">
+    <p><strong>© 2025 Blog Ferrocarril Esp.</strong> Todos los derechos reservados.</p>
+</div>
+
+<!-- Categorías -->
+<div class="article-categories">
+    <h3>Categorías:</h3>
+    <div class="categories-list">
+        <span class="category-tag noticias">Noticias</span>
+        <span class="category-tag ave">AVE</span>
+    </div>
+</div>
+```
+
+---
+
+### **📚 PLANTILLA DE INFORMACIÓN**
+
+#### **UBICACIÓN:** `informacion/plantilla-informacion.html`
+
+#### **CÓMO USARLA:**
+1. **Copia la plantilla:**
+   - Copia `informacion/plantilla-informacion.html`
+   - Renómbrala con el nombre de tu información
+   - Ejemplo: `informacion/linea-madrid-barcelona-caracteristicas.html`
+
+2. **Personaliza el contenido:**
+   - **Título:** Cambia "TÍTULO DE LA INFORMACIÓN AQUÍ"
+   - **Descripción:** Escribe un resumen técnico
+   - **Imagen:** Cambia por diagrama, mapa o foto técnica
+   - **Contenido:** Desarrolla la información técnica
+   - **Fecha:** Actualiza la fecha de actualización
+   - **Autor:** Cambia "Tu Nombre" por tu nombre real
+   - **Categorías:** Selecciona las categorías técnicas apropiadas
+
+#### **ESTRUCTURA DE LA PLANTILLA:**
+```html
+<!-- Título -->
+<h1 class="article-title">TÍTULO DE LA INFORMACIÓN AQUÍ</h1>
+
+<!-- Meta información -->
+<div class="article-meta">
+    <span class="article-date">📅 15 de Enero de 2025</span>
+    <span class="article-author">👤 Por Tu Nombre</span>
+</div>
+
+<!-- Descripción corta -->
+<div class="article-description">
+    <p>Descripción técnica del tema...</p>
+</div>
+
+<!-- Imagen principal -->
+<div class="article-image">
+    <img src="../images/ejemplo-informacion.jpg" alt="Descripción" class="main-image">
+    <p class="image-caption">Pie de foto técnica</p>
+</div>
+
+<!-- Contenido principal -->
+<div class="article-content">
+    <h2>Características principales</h2>
+    <p>Información técnica...</p>
+    <h3>Historia y desarrollo</h3>
+    <p>Datos históricos...</p>
+    <h3>Datos técnicos</h3>
+    <ul>
+        <li>Dato técnico 1</li>
+        <li>Dato técnico 2</li>
+    </ul>
+</div>
+
+<!-- Copyright -->
+<div class="article-copyright">
+    <p><strong>© 2025 Blog Ferrocarril Esp.</strong> Todos los derechos reservados.</p>
+</div>
+
+<!-- Categorías -->
+<div class="article-categories">
+    <h3>Categorías:</h3>
+    <div class="categories-list">
+        <span class="category-tag informacion">Información</span>
+        <span class="category-tag ancho-iberico">Ancho Ibérico</span>
+    </div>
+</div>
+```
+
+---
+
+### **👤 CAMBIAR NOMBRE Y FECHA EN LAS PLANTILLAS**
+
+#### **UBICACIÓN DE LOS ELEMENTOS A CAMBIAR:**
+
+**En la plantilla de noticia (`noticias/plantilla-noticia.html`):**
+```html
+<!-- Línea 66-67: Meta información del artículo -->
+<div class="article-meta">
+    <span class="article-date">📅 15 de Enero de 2025</span>
+    <span class="article-author">👤 Por Tu Nombre</span>
+</div>
+
+<!-- Línea 130: Información del autor en sidebar -->
+<h4 id="authorName">Tu Nombre</h4>
+
+<!-- Línea 124: Foto del autor (solo imagen, sin placeholder) -->
+<div class="author-photo">
+    <img src="../images/autor-foto.jpg" alt="Foto del autor" id="authorPhoto">
+</div>
+```
+
+**En la plantilla de información (`informacion/plantilla-informacion.html`):**
+```html
+<!-- Línea 66-67: Meta información del artículo -->
+<div class="article-meta">
+    <span class="article-date">📅 15 de Enero de 2025</span>
+    <span class="article-author">👤 Por Tu Nombre</span>
+</div>
+
+<!-- Línea 130: Información del autor en sidebar -->
+<h4 id="authorName">Tu Nombre</h4>
+
+<!-- Línea 129: Foto del autor (solo imagen, sin placeholder) -->
+<div class="author-photo">
+    <img src="../images/autor-foto.jpg" alt="Foto del autor" id="authorPhoto">
+</div>
+```
+
+#### **CÓMO CAMBIAR EL NOMBRE:**
+
+1. **Busca la línea:** `<span class="article-author">👤 Por Tu Nombre</span>`
+2. **Cambia por:** `<span class="article-author">👤 Por [Tu Nombre Real]</span>`
+3. **Ejemplo:** `<span class="article-author">👤 Por Juan Pérez</span>`
+
+4. **También cambia en el sidebar:** `<h4 id="authorName">Tu Nombre</h4>`
+5. **Cambia por:** `<h4 id="authorName">[Tu Nombre Real]</h4>`
+6. **Ejemplo:** `<h4 id="authorName">Juan Pérez</h4>`
+
+#### **CÓMO CAMBIAR LA FECHA:**
+
+1. **Busca la línea:** `<span class="article-date">📅 15 de Enero de 2025</span>`
+2. **Cambia por:** `<span class="article-date">📅 [Día] de [Mes] de [Año]</span>`
+3. **Ejemplos:**
+   - `<span class="article-date">📅 20 de Marzo de 2025</span>`
+   - `<span class="article-date">📅 3 de Diciembre de 2024</span>`
+   - `<span class="article-date">📅 1 de Enero de 2025</span>`
+
+#### **FORMATOS DE FECHA RECOMENDADOS:**
+
+- **Formato español:** "15 de Enero de 2025"
+- **Formato corto:** "15/01/2025"
+- **Formato con día:** "Lunes, 15 de Enero de 2025"
+- **Formato técnico:** "15-01-2025"
+
+#### **CONSEJOS IMPORTANTES:**
+
+- **Consistencia:** Usa el mismo formato de fecha en todo el blog
+- **Actualización:** Cambia la fecha cada vez que actualices el contenido
+- **Verificación:** Asegúrate de cambiar AMBAS ubicaciones (artículo y sidebar)
+- **Guardar:** No olvides guardar el archivo después de hacer los cambios
+
+---
+
+### **🎨 PERSONALIZACIÓN DE ESTILOS**
+
+#### **ARCHIVOS CSS ESPECÍFICOS:**
+- **Noticias:** `noticias/noticia-styles.css`
+- **Información:** `informacion/informacion-styles.css`
+
+#### **COLORES PREDEFINIDOS:**
+- **Noticias:** Fondo blanco con gradientes azul-rosa
+- **Información:** Fondo blanco con gradientes azul-verde
+
+#### **CÓMO CAMBIAR COLORES:**
+1. Abre el archivo CSS correspondiente
+2. Busca las variables de color
+3. Cambia los valores hexadecimales
+4. Guarda el archivo
+
+---
+
+### **📱 WIDGETS RECOMENDADOS PARA SIDEBAR**
+
+#### **PARA NOTICIAS:**
+- ✅ **Información del autor** - Biografía y foto
+- ✅ **Noticias relacionadas** - Enlaces a otras noticias
+- ✅ **Enlaces rápidos** - Navegación principal
+- ✅ **Compartir en redes sociales** - Botones de compartir
+
+#### **PARA INFORMACIÓN:**
+- ✅ **Información del autor** - Especialización técnica
+- ✅ **Información relacionada** - Enlaces a contenido técnico
+- ✅ **Enlaces rápidos** - Navegación principal
+- ✅ **Compartir en redes sociales** - Botones de compartir
+
+#### **WIDGETS ADICIONALES RECOMENDADOS:**
+- 📊 **Tabla de contenidos** - Para artículos largos
+- 🔍 **Búsqueda en el sitio** - Buscador interno
+- 📅 **Calendario de eventos** - Eventos ferroviarios
+- 📈 **Estadísticas** - Datos del sitio
+- 💬 **Comentarios** - Sistema de comentarios
+- 📧 **Newsletter** - Suscripción por email
+- 🏷️ **Nube de etiquetas** - Categorías populares
+
+---
+
+### **📝 CONSEJOS PARA CREAR CONTENIDO**
+
+#### **PARA NOTICIAS:**
+- **Título:** Descriptivo y atractivo
+- **Descripción:** 2-3 frases que resuman la noticia
+- **Imagen:** Foto relevante y de calidad
+- **Contenido:** Estructura clara con subtítulos
+- **Categorías:** Usa las categorías de noticias disponibles
+
+#### **PARA INFORMACIÓN:**
+- **Título:** Específico y técnico
+- **Descripción:** Resumen del contenido técnico
+- **Imagen:** Diagrama, mapa o foto técnica
+- **Contenido:** Información detallada y estructurada
+- **Categorías:** Usa las categorías de información disponibles
+
+---
+
+### **🔗 INTEGRACIÓN CON EL SISTEMA DE FILTRADO**
+
+#### **CATEGORÍAS DISPONIBLES:**
+
+**Para Noticias:**
+- noticias, metro, tram, ave, cercanias
+- apertura_linea, inicio_obras, fin_obras
+- evento_especial, mantenimiento, aniversario
+- cambio_horarios
+
+**Para Información:**
+- informacion, ancho_iberico, ancho_metrico
+- ancho_internacional, lineas_cerradas
+- proyectos_cancelados, proyectos_actuales
+- proyectos_en_marcha, proyectos_estudio
+
+#### **CÓMO AÑADIR NUEVAS CATEGORÍAS:**
+1. Añade en `index.html` (sistema de filtrado)
+2. Añade en `script.js` (función `getCategoryDisplayName`)
+3. Añade estilos en los archivos CSS correspondientes
+
+---
+
+### **✅ CHECKLIST PARA CREAR CONTENIDO**
+
+#### **ANTES DE CREAR:**
+- [ ] Decide el tipo de contenido (noticia o información)
+- [ ] Elige un título descriptivo
+- [ ] Prepara una imagen relevante
+- [ ] Selecciona las categorías apropiadas
+
+#### **DURANTE LA CREACIÓN:**
+- [ ] Copia la plantilla correspondiente
+- [ ] Cambia el título
+- [ ] Escribe la descripción
+- [ ] Añade la imagen con pie de foto
+- [ ] Desarrolla el contenido completo
+- [ ] **Cambia "Tu Nombre" por tu nombre real (2 ubicaciones)**
+- [ ] **Actualiza la fecha de publicación**
+- [ ] Selecciona las categorías
+- [ ] Personaliza la información del autor en el sidebar
+
+#### **DESPUÉS DE CREAR:**
+- [ ] Verifica que todos los enlaces funcionan
+- [ ] Comprueba la ortografía y gramática
+- [ ] Asegúrate de que las categorías son correctas
+- [ ] Prueba en diferentes dispositivos
+- [ ] Añade el enlace al menú principal si es necesario
+
+---
+
+**¡Ahora tienes una guía completa para personalizar tu blog de ferrocarriles! 🚂✨**
+
+Recuerda: Haz cambios pequeños y verifica cada uno antes de continuar. Si tienes dudas, siempre puedes hacer una copia de seguridad del archivo antes de modificarlo.
+
+**💡 CONSEJO:** Empieza personalizando la información básica (nombre, foto, biografía) y luego ve añadiendo categorías y contenido personalizado paso a paso.

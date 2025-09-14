@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrid - Desarrollo Ferroviario - Blog Ferrocarril Esp</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html"><img src="../images/logo-ferrocarril-esp.png" alt="Logo Ferrocarril Esp" class="logo-img"></a></h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="../lineas/index.html">Líneas ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../lineas/ancho-iberico.html">Ancho ibérico</a></li>
+                            <li><a href="../lineas/ancho-metrico.html">Ancho métrico</a></li>
+                            <li><a href="../lineas/ancho-internacional.html">Ancho internacional</a></li>
+                            <li><a href="../lineas/tipos-lineas.html">Distintos tipos de líneas</a></li>
+                            <li><a href="../lineas/lineas-cerradas.html">Líneas Cerradas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="../proyectos/index.html">Proyectos ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../proyectos/proyectos-cancelados.html">Proyectos cancelados</a></li>
+                            <li><a href="../proyectos/proyectos-actuales.html">Proyectos actuales</a></li>
+                            <li><a href="../proyectos/proyectos-en-marcha.html">Proyectos en marcha</a></li>
+                            <li><a href="../proyectos/proyectos-estudio.html">Proyectos en estudio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../curiosidades.html">Curiosidades</a></li>
+                    <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
+                    <li class="dropdown">
+                        <a href="index.html">Desarrollo ciudades ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="sevilla.html">Sevilla</a></li>
+                            <li><a href="madrid.html">Madrid</a></li>
+                            <li><a href="barcelona.html">Barcelona</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../estaciones/index.html">Estaciones de tren</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Left Content -->
+                <div class="content-left">
+                    <section class="section">
+                        <h2>Madrid - Desarrollo Ferroviario</h2>
+                        <p>Madrid es el centro neurálgico del sistema ferroviario español, con una extensa red de metro, cercanías y conexiones de alta velocidad.</p>
+                        
+                        <!-- Filtros adicionales -->
+                        <div class="additional-filters">
+                            <h3>Filtros Adicionales</h3>
+                            <div class="filter-options">
+                                <label><input type="checkbox" value="ave" onchange="filterByAdditionalCategory()"> AVE</label>
+                                <label><input type="checkbox" value="metro" onchange="filterByAdditionalCategory()"> Metro</label>
+                                <label><input type="checkbox" value="cercanias" onchange="filterByAdditionalCategory()"> Cercanías</label>
+                                <label><input type="checkbox" value="apertura_linea" onchange="filterByAdditionalCategory()"> Apertura de Línea</label>
+                                <label><input type="checkbox" value="estaciones_principales" onchange="filterByAdditionalCategory()"> Estaciones Principales</label>
+                                <label><input type="checkbox" value="proyectos_actuales" onchange="filterByAdditionalCategory()"> Proyectos Actuales</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Contenido filtrado -->
+                        <div id="filteredContent" class="filtered-content">
+                            <!-- El contenido se cargará dinámicamente -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="sidebar">
+                    <div class="author-info">
+                        <h3>Sobre Mí</h3>
+                        <div class="author-photo">
+                            <img src="../tu-foto.jpg" alt="Foto del autor" id="authorPhoto">
+                            <div class="photo-placeholder" id="photoPlaceholder">
+                                <span>📷</span>
+                                <p>Tu foto aquí</p>
+                            </div>
+                        </div>
+                        <h4 id="authorName">Tu Nombre</h4>
+                        <p id="authorBio">Apasionado del ferrocarril español. Amante de la historia ferroviaria y las innovaciones del sector.</p>
+                        
+                        <div class="social-links">
+                            <h5>Redes Sociales</h5>
+                            <div class="social-icons">
+                                <a href="#" id="twitterLink" class="social-icon">Twitter</a>
+                                <a href="#" id="linkedinLink" class="social-icon">LinkedIn</a>
+                                <a href="#" id="instagramLink" class="social-icon">Instagram</a>
+                                <a href="#" id="youtubeLink" class="social-icon">YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-links">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="../curiosidades.html">Curiosidades</a></li>
+                            <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
+                            <li><a href="../index.html#faq">FAQ - Preguntas Frecuentes</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Política de Privacidad</h4>
+                    <p>Este blog respeta tu privacidad. No recopilamos información personal sin tu consentimiento.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Blog Ferrocarril Esp. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../config.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Cargar contenido de la categoría Madrid
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategoryContent('madrid');
+        });
+
+        function loadCategoryContent(category) {
+            try {
+                const savedContent = localStorage.getItem('allContent');
+                const allContent = savedContent ? JSON.parse(savedContent) : [];
+                
+                const filteredContent = allContent.filter(item => 
+                    item.categories.includes(category)
+                );
+                
+                displayCategoryContent(filteredContent);
+            } catch (error) {
+                console.error('Error al cargar contenido:', error);
+            }
+        }
+
+        function displayCategoryContent(content) {
+            const container = document.getElementById('filteredContent');
+            
+            if (content.length === 0) {
+                container.innerHTML = '<p>No hay contenido disponible para esta categoría.</p>';
+                return;
+            }
+            
+            const contentHTML = content.map(item => `
+                <div class="content-item">
+                    <h3>${item.title}</h3>
+                    <p>${item.content}</p>
+                    <div class="content-meta">
+                        <span class="date">${formatDate(item.date)}</span>
+                        <span class="author">Por: ${item.author}</span>
+                    </div>
+                    <div class="content-categories">
+                        ${item.categories.map(cat => `<span class="category-tag">${getCategoryDisplayName(cat)}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = contentHTML;
+        }
+
+        function filterByAdditionalCategory() {
+            const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(cb => cb.value);
+            
+            try {
+                const savedContent = localStorage.getItem('allContent');
+                const allContent = savedContent ? JSON.parse(savedContent) : [];
+                
+                let filteredContent = allContent.filter(item => 
+                    item.categories.includes('madrid')
+                );
+                
+                if (selectedCategories.length > 0) {
+                    filteredContent = filteredContent.filter(item => 
+                        selectedCategories.some(cat => item.categories.includes(cat))
+                    );
+                }
+                
+                displayCategoryContent(filteredContent);
+            } catch (error) {
+                console.error('Error al filtrar:', error);
+            }
+        }
+
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                return dateString;
+            }
+        }
+
+        function getCategoryDisplayName(category) {
+            const categoryNames = {
+                'madrid': 'Madrid',
+                'ave': 'AVE',
+                'metro': 'Metro',
+                'cercanias': 'Cercanías',
+                'apertura_linea': 'Apertura de Línea',
+                'estaciones_principales': 'Estaciones Principales',
+                'proyectos_actuales': 'Proyectos Actuales'
+            };
+            
+            return categoryNames[category] || category;
+        }
+    </script>
+</body>
+</html>

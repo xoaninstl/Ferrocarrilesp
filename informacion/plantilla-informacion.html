@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla de Información - Blog Ferrocarril Esp</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="informacion-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="informacion-template">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><img src="../images/logo-ferrocarril-esp.png" alt="Logo Ferrocarril Esp" class="logo-img"></h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="../lineas/index.html">Líneas ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../lineas/ancho-iberico.html">Ancho ibérico</a></li>
+                            <li><a href="../lineas/ancho-metrico.html">Ancho métrico</a></li>
+                            <li><a href="../lineas/ancho-internacional.html">Ancho internacional</a></li>
+                            <li><a href="../lineas/tipos-lineas.html">Distintos tipos de líneas</a></li>
+                            <li><a href="../lineas/lineas-cerradas.html">Líneas Cerradas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="../proyectos/index.html">Proyectos ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../proyectos/proyectos-cancelados.html">Proyectos cancelados</a></li>
+                            <li><a href="../proyectos/proyectos-actuales.html">Proyectos actuales</a></li>
+                            <li><a href="../proyectos/proyectos-en-marcha.html">Proyectos en marcha</a></li>
+                            <li><a href="../proyectos/proyectos-estudio.html">Proyectos en estudio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../curiosidades.html">Curiosidades</a></li>
+                    <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
+                    <li><a href="../ciudades/index.html">Desarrollo ciudades</a></li>
+                    <li><a href="../estaciones/index.html">Estaciones de tren</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Barra de búsqueda -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar en el blog..." class="search-input">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Left Content -->
+                <div class="content-left">
+                    <!-- Breadcrumb -->
+                    <div class="breadcrumb">
+                        <a href="../index.html">Inicio</a> > <a href="index.html">Información</a> > <span>Plantilla de Información</span>
+                    </div>
+
+                    <!-- Article Content -->
+                    <article class="informacion-article">
+                        <!-- Título -->
+                        <header class="article-header">
+                            <h1 class="article-title">TÍTULO DE LA INFORMACIÓN AQUÍ</h1>
+                            <div class="article-meta">
+                                <span class="article-date">📅 15 de Enero de 2025</span>
+                                <span class="article-author">👤 Por Tu Nombre</span>
+                            </div>
+                        </header>
+
+                        <!-- Descripción corta -->
+                        <div class="article-description">
+                            <p>Aquí va una breve descripción del tema de la información. Esta descripción debe ser concisa y dar una idea general de lo que trata la información sin entrar en detalles.</p>
+                        </div>
+
+                        <!-- Imagen principal -->
+                        <div class="article-image">
+                            <img src="../images/ejemplo-informacion.jpg" alt="Descripción de la imagen" class="main-image">
+                            <p class="image-caption">Pie de foto descriptivo de la imagen</p>
+                        </div>
+
+                        <!-- Contenido principal -->
+                        <div class="article-content">
+                            <p>Aquí comienza el desarrollo completo de la información. Puedes estructurar el contenido en párrafos, usar subtítulos, listas, etc.</p>
+                            
+                            <h2>Características principales</h2>
+                            <p>Desarrollo de las características principales del tema que estás tratando.</p>
+                            
+                            <h3>Historia y desarrollo</h3>
+                            <p>Información histórica y desarrollo del tema a lo largo del tiempo.</p>
+                            
+                            <h3>Datos técnicos</h3>
+                            <ul>
+                                <li>Dato técnico 1</li>
+                                <li>Dato técnico 2</li>
+                                <li>Dato técnico 3</li>
+                            </ul>
+                            
+                            <h3>Estado actual</h3>
+                            <p>Información sobre el estado actual del tema tratado.</p>
+                            
+                            <h3>Futuro y perspectivas</h3>
+                            <p>Información sobre planes futuros y perspectivas del tema.</p>
+                        </div>
+
+                        <!-- Copyright -->
+                        <div class="article-copyright">
+                            <p><strong>© 2025 Blog Ferrocarril Esp.</strong> Todos los derechos reservados. Esta información está protegida por derechos de autor.</p>
+                        </div>
+
+                        <!-- Categorías -->
+                        <div class="article-categories">
+                            <h3>Categorías:</h3>
+                            <div class="categories-list">
+                                <span class="category-tag informacion">Información</span>
+                                <span class="category-tag ancho-iberico">Ancho Ibérico</span>
+                                <span class="category-tag lineas">Líneas</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="sidebar">
+                    <!-- Información del autor -->
+                    <div class="author-info">
+                        <h3>Sobre el Autor</h3>
+                        <div class="author-photo">
+                            <img src="../images/autor-foto.jpg" alt="Foto del autor" id="authorPhoto">
+                        </div>
+                        <h4 id="authorName">Tu Nombre</h4>
+                        <p id="authorBio">Especialista en ferrocarriles españoles con más de 10 años de experiencia en el sector.</p>
+                    </div>
+
+                    <!-- Información relacionada -->
+                    <div class="related-info">
+                        <h3>Información Relacionada</h3>
+                        <div class="related-item">
+                            <h4><a href="#">Línea Madrid-Barcelona</a></h4>
+                            <p class="related-date">Información técnica</p>
+                        </div>
+                        <div class="related-item">
+                            <h4><a href="#">Ancho de vía en España</a></h4>
+                            <p class="related-date">Datos históricos</p>
+                        </div>
+                        <div class="related-item">
+                            <h4><a href="#">Trenes de alta velocidad</a></h4>
+                            <p class="related-date">Especificaciones</p>
+                        </div>
+                    </div>
+
+                    <!-- Enlaces rápidos -->
+                    <div class="quick-links">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="../curiosidades.html">Curiosidades</a></li>
+                            <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
+                            <li><a href="../proyectos/index.html">Proyectos</a></li>
+                            <li><a href="../lineas/index.html">Líneas</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Compartir en redes sociales -->
+                    <div class="social-share">
+                        <h3>Compartir</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn twitter">Twitter</a>
+                            <a href="#" class="share-btn instagram">Instagram</a>
+                            <a href="#" class="share-btn youtube">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Blog Ferrocarril Esp</h4>
+                    <p>Tu fuente de información sobre el ferrocarril español. Noticias, proyectos, curiosidades y mucho más.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Enlaces Útiles</h4>
+                    <ul>
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="index.html">Información</a></li>
+                        <li><a href="../proyectos/index.html">Proyectos</a></li>
+                        <li><a href="../lineas/index.html">Líneas</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Blog Ferrocarril Esp. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../config.js"></script>
+    <script src="../script.js"></script>
+</body>
+</html>

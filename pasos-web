@@ -1,0 +1,69 @@
+PASOS PARA INSTALAR Y DEJAR LA WEB LISTA (WORDPRESS EN AZURE)
+
+ACTUALIZACIÓN: Header compacto de una línea
+- Eliminadas secciones "Información" y "Compra de billetes" del menú
+- Header más compacto con logo más pequeño y menú optimizado
+- Mantenidas todas las demás funcionalidades
+
+0) Requisitos previos
+- App Service con WordPress (recurso: Ferrocarrilesp).
+- Usuario administrador de WordPress.
+
+1) Instalar/activar el tema Ferroblog
+- En tu PC, comprime SOLO el contenido de "ferroblog" (no la carpeta padre):
+  cd C:\Users\jxhnm\Desktop\BlogFerrocarriles
+  Remove-Item C:\Users\jxhnm\Desktop\ferroblog.zip -ErrorAction SilentlyContinue
+  Compress-Archive -Path .\ferroblog\* -DestinationPath C:\Users\jxhnm\Desktop\ferroblog.zip -Force
+- En WordPress: Apariencia → Temas → Añadir nuevo → Subir tema → elige ferroblog.zip → Instalar → Activar.
+
+2) Crear categorías base automáticamente
+- Re-activa el tema para crear categorías por defecto:
+  Apariencia → Temas → activa cualquier otro y vuelve a activar "Ferroblog".
+- Verifica en Entradas → Categorías que aparecen (entre otras): metro, tram, ave, cercanias, apertura_linea, inicio_obras, fin_obras, evento_especial, mantenimiento, aniversario, ancho_iberico, ancho_metrico, ancho_internacional, lineas_cerradas, proyectos_cancelados, proyectos_actuales, proyectos_en_marcha, proyectos_estudio, sevilla, madrid, barcelona, valencia, bilbao, a_coruna.
+
+3) Ajustes básicos
+- Portada: Ajustes → Lectura → "Tus últimas entradas" → Guardar.
+- Enlaces permanentes (opcional): Ajustes → Enlaces permanentes → "Nombre de la entrada" → Guardar.
+
+4) Logo del sitio
+- Apariencia → Personalizar → Identidad del sitio → Logo → sube/selecciona → Publicar.
+
+5) Menú principal (Header compacto de una línea)
+- Apariencia → Menús → Crear menú "Principal"
+- Añade elementos: Inicio, Líneas (con submenús), Proyectos (con submenús), Curiosidades, Noticias, Desarrollo ciudades, Estaciones de tren
+- NO incluir: Información, Compra de billetes
+- Marcar "Ubicación: Menú principal" → Guardar
+- El header será compacto de una sola línea
+- Ver archivo INSTRUCCIONES-MENU.md en el tema para detalles completos
+
+6) Crear la primera noticia
+- Entradas → Añadir nueva → Título + Contenido → Imagen destacada → Categorías → Publicar.
+- Comprueba: Inicio muestra el listado; al entrar, se ve la plantilla de noticia.
+
+7) Ciudades
+- La portada incluye Sevilla, Madrid, Barcelona, Valencia, Bilbao y A Coruña.
+- Si quieres páginas de ciudad en WP, créalas (Páginas → Añadir nueva) y enlázalas en el menú.
+
+8) Filtro avanzado del sidebar
+- Está desactivado por simplicidad. Si quieres activarlo sin la sección "Información", indícalo y se añade al tema.
+
+9) Plugins recomendados (opcionales)
+- Yoast SEO o Rank Math (SEO y sitemap)
+- WP Super Cache (caché, si no usas otro)
+- WPForms Lite (formularios) o Contact Form 7
+- Enable Media Replace, Regenerate Thumbnails (medios)
+- WP Mail SMTP (emails fiables)
+- Classic Editor (si prefieres el editor clásico)
+
+10) Alternativa: subir por Azure Kudu/FTP
+- Portal Azure → App Service "Ferrocarrilesp" → Herramientas avanzadas (Kudu) → Ir.
+- Debug console → CMD → site/wwwroot/wp-content/themes/
+- Crea carpeta "ferroblog" y sube archivos → Activa el tema en Apariencia → Temas.
+
+11) Problemas comunes
+- "El tema no tiene style.css": el ZIP contiene doble carpeta. Rehaz el ZIP solo con el contenido.
+- No se ven estilos: Ctrl+F5, tema activo, Lectura en "Tus últimas entradas".
+- Categorías no aparecen: re-activa el tema.
+
+FIN.
+
