@@ -37,9 +37,11 @@
                 </div>
             </div>
 
-            <div class="author-box">
-                <h3>Sobre el autor</h3>
-                <?php echo ferrocarril_display_author_profile(get_the_author_meta('ID')); ?>
+            <div class="author-box-container">
+                <div class="author-box">
+                    <h3>Sobre el autor</h3>
+                    <?php echo ferrocarril_display_author_profile(get_the_author_meta('ID')); ?>
+                </div>
             </div>
         </article>
 

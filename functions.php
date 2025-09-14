@@ -195,10 +195,10 @@ add_action('wp_ajax_nopriv_ferrocarril_search', 'ferrocarril_esp_search_ajax');
 
 function ferrocarril_esp_scripts() {
     // CSS principal
-    wp_enqueue_style('ferrocarril-style', get_template_directory_uri() . '/styles.css', array(), '1.0.0');
+    wp_enqueue_style('ferrocarril-style', get_template_directory_uri() . '/styles.css', array(), '1.0.1');
 
     // CSS específico para WordPress
-    wp_enqueue_style('ferrocarril-wp-style', get_template_directory_uri() . '/wp-style.css', array('ferrocarril-style'), '1.0.0');
+    wp_enqueue_style('ferrocarril-wp-style', get_template_directory_uri() . '/wp-style.css', array('ferrocarril-style'), '1.0.2');
 
     // Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', array(), null);
@@ -435,7 +435,7 @@ add_shortcode('crear_ejemplo', function() {
 // FUNCIONES PARA GRAVATAR Y PERFIL DE AUTOR
 // ==================================================================================
 
-function ferrocarril_get_gravatar($user_id, $size = 96) {
+function ferrocarril_get_gravatar($user_id, $size = 70) {
     $user = get_userdata($user_id);
     if (!$user) return '';
 
@@ -478,7 +478,7 @@ function ferrocarril_display_author_profile($user_id, $show_bio = true, $show_so
 
     // Avatar
     $output .= '<div class="author-avatar-container">';
-    $output .= ferrocarril_get_gravatar($user_id, 80);
+    $output .= ferrocarril_get_gravatar($user_id, 70);
     $output .= '</div>';
 
     // Información del autor
