@@ -17,10 +17,10 @@
             </div>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.php">Inicio</a></li>
                     <li><a href="../lineas/ancho-iberico.html">Ancho ibérico</a></li>
                     <li><a href="../proyectos/proyectos-estudio.html">Proyectos en estudio</a></li>
-                    <li><a href="../desarrollo-ciudades/index.html">Desarrollo ciudades</a></li>
+                    <li><a href="../desarrollo-ciudades/index.php">Desarrollo ciudades</a></li>
                     <li><a href="../estaciones-tren/mapa-provincias.html">Mapa por provincias</a></li>
                 </ul>
             </nav>
@@ -58,7 +58,7 @@
 
             <!-- Botón para volver -->
             <div class="back-button">
-                <a href="../index.html" class="btn btn-primary">← Volver al Inicio</a>
+                <a href="../index.php" class="btn btn-primary">← Volver al Inicio</a>
             </div>
         </div>
     </main>

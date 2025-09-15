@@ -1979,6 +1979,39 @@ mark {
     box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
 }
 
+/* Botones para expandir ciudades */
+.expand-cities-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.btn-expand-cities, .btn-more-cities {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-expand-cities:hover, .btn-more-cities:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+}
+
+.more-cities-filter {
+    margin-top: 10px;
+}
+
+.more-cities {
+    margin-top: 10px;
+}
+
 /* Resultados del filtrado */
 .filter-results {
     margin-top: 25px;

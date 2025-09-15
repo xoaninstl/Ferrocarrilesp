@@ -16,9 +16,9 @@
             </div>
             <nav class="nav">
                 <ul class="nav-menu">
-                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.php">Inicio</a></li>
                     <li class="dropdown">
-                        <a href="../lineas/index.html">Líneas ▼</a>
+                        <a href="../lineas/index.php">Líneas ▼</a>
                         <ul class="dropdown-menu">
                             <li><a href="../lineas/ancho-iberico.html">Ancho ibérico</a></li>
                             <li><a href="../lineas/ancho-metrico.html">Ancho métrico</a></li>
@@ -28,7 +28,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="../proyectos/index.html">Proyectos ▼</a>
+                        <a href="../proyectos/index.php">Proyectos ▼</a>
                         <ul class="dropdown-menu">
                             <li><a href="../proyectos/proyectos-cancelados.html">Proyectos cancelados</a></li>
                             <li><a href="../proyectos/proyectos-actuales.html">Proyectos actuales</a></li>
@@ -38,8 +38,8 @@
                     </li>
                     <li><a href="../curiosidades.html">Curiosidades</a></li>
                     <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
-                    <li><a href="../ciudades/index.html">Desarrollo ciudades</a></li>
-                    <li><a href="../estaciones/index.html">Estaciones de tren</a></li>
+                    <li><a href="../ciudades/index.php">Desarrollo ciudades</a></li>
+                    <li><a href="../estaciones/index.php">Estaciones de tren</a></li>
                 </ul>
             </nav>
             
@@ -59,7 +59,7 @@
                 <div class="content-left">
                     <!-- Breadcrumb -->
                     <div class="breadcrumb">
-                        <a href="../index.html">Inicio</a> > <span>Información</span>
+                        <a href="../index.php">Inicio</a> > <span>Información</span>
                     </div>
 
                     <!-- Page Header -->
@@ -132,8 +132,8 @@
                         <ul>
                             <li><a href="../curiosidades.html">Curiosidades</a></li>
                             <li><a href="../compra-billetes.html">Compra de Billetes</a></li>
-                            <li><a href="../proyectos/index.html">Proyectos</a></li>
-                            <li><a href="../lineas/index.html">Líneas</a></li>
+                            <li><a href="../proyectos/index.php">Proyectos</a></li>
+                            <li><a href="../lineas/index.php">Líneas</a></li>
                         </ul>
                     </div>
                 </div>
@@ -153,10 +153,10 @@
                 <div class="footer-section">
                     <h4>Enlaces Útiles</h4>
                     <ul>
-                        <li><a href="../index.html">Inicio</a></li>
-                        <li><a href="index.html">Información</a></li>
-                        <li><a href="../proyectos/index.html">Proyectos</a></li>
-                        <li><a href="../lineas/index.html">Líneas</a></li>
+                        <li><a href="../index.php">Inicio</a></li>
+                        <li><a href="index.php">Información</a></li>
+                        <li><a href="../proyectos/index.php">Proyectos</a></li>
+                        <li><a href="../lineas/index.php">Líneas</a></li>
                     </ul>
                 </div>
             </div>

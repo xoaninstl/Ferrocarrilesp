@@ -1034,7 +1034,8 @@ function getCategoryDisplayName(category) {
         'madrid': 'Madrid',
         'barcelona': 'Barcelona',
         'valencia': 'Valencia',
-        'bilbao': 'Bilbao'
+        'bilbao': 'Bilbao',
+        'a_coruna': 'A Coruña'
     };
     
     return categoryNames[category] || category;
@@ -1163,4 +1164,92 @@ function getMainCategoryFromURL() {
     if (path.includes('madrid')) return 'madrid';
     if (path.includes('barcelona')) return 'barcelona';
     return null;
+}
+
+// ==================================================================================
+// FUNCIONES PARA MOSTRAR/OCULTAR MÁS CIUDADES
+// ==================================================================================
+
+function toggleMoreCities() {
+    const moreCitiesList = document.querySelector('.more-cities');
+    const toggleButton = document.querySelector('.btn-more-cities');
+
+    if (moreCitiesList && toggleButton) {
+        const isHidden = moreCitiesList.style.display === 'none' || moreCitiesList.style.display === '';
+
+        if (isHidden) {
+            // Mostrar ciudades adicionales
+            moreCitiesList.style.display = 'block';
+            moreCitiesList.innerHTML = `
+                <a href="ciudades/zaragoza.html">Zaragoza</a><br>
+                <a href="ciudades/malaga.html">Málaga</a><br>
+                <a href="ciudades/santander.html">Santander</a><br>
+                <a href="ciudades/vigo.html">Vigo</a><br>
+                <a href="ciudades/gijon.html">Gijón</a><br>
+                <a href="ciudades/salamanca.html">Salamanca</a><br>
+                <a href="ciudades/murcia.html">Murcia</a><br>
+                <a href="ciudades/oviedo.html">Oviedo</a>
+            `;
+            toggleButton.textContent = 'Ocultar ciudades adicionales';
+        } else {
+            // Ocultar ciudades adicionales
+            moreCitiesList.style.display = 'none';
+            moreCitiesList.innerHTML = '';
+            toggleButton.textContent = 'Ver más ciudades...';
+        }
+    }
+}
+
+function toggleMoreCitiesFilter() {
+    const moreCitiesFilter = document.querySelector('.more-cities-filter');
+    const toggleButton = document.querySelector('.btn-expand-cities');
+
+    if (moreCitiesFilter && toggleButton) {
+        const isHidden = moreCitiesFilter.style.display === 'none' || moreCitiesFilter.style.display === '';
+
+        if (isHidden) {
+            // Mostrar filtros de ciudades adicionales
+            moreCitiesFilter.style.display = 'block';
+            moreCitiesFilter.innerHTML = `
+                <div class="category-checkbox">
+                    <input type="checkbox" id="zaragoza" value="zaragoza" onchange="updateCategoryFilter()">
+                    <label for="zaragoza">Zaragoza</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="malaga" value="malaga" onchange="updateCategoryFilter()">
+                    <label for="malaga">Málaga</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="santander" value="santander" onchange="updateCategoryFilter()">
+                    <label for="santander">Santander</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="vigo" value="vigo" onchange="updateCategoryFilter()">
+                    <label for="vigo">Vigo</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="gijon" value="gijon" onchange="updateCategoryFilter()">
+                    <label for="gijon">Gijón</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="salamanca" value="salamanca" onchange="updateCategoryFilter()">
+                    <label for="salamanca">Salamanca</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="murcia" value="murcia" onchange="updateCategoryFilter()">
+                    <label for="murcia">Murcia</label>
+                </div>
+                <div class="category-checkbox">
+                    <input type="checkbox" id="oviedo" value="oviedo" onchange="updateCategoryFilter()">
+                    <label for="oviedo">Oviedo</label>
+                </div>
+            `;
+            toggleButton.textContent = 'Ocultar ciudades adicionales';
+        } else {
+            // Ocultar filtros de ciudades adicionales
+            moreCitiesFilter.style.display = 'none';
+            moreCitiesFilter.innerHTML = '';
+            toggleButton.textContent = 'Ver más ciudades...';
+        }
+    }
 }

@@ -19,23 +19,23 @@
                     <li class="dropdown">
                         <a href="<?php echo home_url('/lineas/'); ?>">Líneas ▼</a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo home_url('/lineas/ancho-iberico.html'); ?>">Ancho ibérico</a></li>
-                            <li><a href="<?php echo home_url('/lineas/ancho-metrico.html'); ?>">Ancho métrico</a></li>
-                            <li><a href="<?php echo home_url('/lineas/ancho-internacional.html'); ?>">Ancho internacional</a></li>
-                            <li><a href="<?php echo home_url('/lineas/tipos-lineas.html'); ?>">Distintos tipos de líneas</a></li>
-                            <li><a href="<?php echo home_url('/lineas/lineas-cerradas.html'); ?>">Líneas Cerradas</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Ancho ibérico')); ?>">Ancho ibérico</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Ancho métrico')); ?>">Ancho métrico</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Ancho internacional')); ?>">Ancho internacional</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Tipos de líneas')); ?>">Distintos tipos de líneas</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Líneas cerradas')); ?>">Líneas Cerradas</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="<?php echo home_url('/proyectos/'); ?>">Proyectos ▼</a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo home_url('/proyectos/proyectos-cancelados.html'); ?>">Proyectos cancelados</a></li>
-                            <li><a href="<?php echo home_url('/proyectos/proyectos-actuales.html'); ?>">Proyectos actuales</a></li>
-                            <li><a href="<?php echo home_url('/proyectos/proyectos-en-marcha.html'); ?>">Proyectos en marcha</a></li>
-                            <li><a href="<?php echo home_url('/proyectos/proyectos-estudio.html'); ?>">Proyectos en estudio</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos cancelados')); ?>">Proyectos cancelados</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos actuales')); ?>">Proyectos actuales</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos en marcha')); ?>">Proyectos en marcha</a></li>
+                            <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos en estudio')); ?>">Proyectos en estudio</a></li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo home_url('/curiosidades.html'); ?>">Curiosidades</a></li>
+                    <li><a href="<?php echo get_category_link(get_cat_ID('Curiosidades')); ?>">Curiosidades</a></li>
                     <li><a href="<?php echo home_url('/noticias/'); ?>">Noticias</a></li>
                     <li><a href="<?php echo home_url('/ciudades/'); ?>">Desarrollo ciudades</a></li>
                     <li><a href="<?php echo home_url('/estaciones/'); ?>">Estaciones de tren</a></li>
@@ -71,33 +71,37 @@
                                 <div class="seccion-card">
                                     <h4>🚆 Líneas</h4>
                                     <ul>
-                                        <li><a href="<?php echo home_url('/lineas/ancho-iberico.html'); ?>">Ancho ibérico</a></li>
-                                        <li><a href="<?php echo home_url('/lineas/ancho-metrico.html'); ?>">Ancho métrico</a></li>
-                                        <li><a href="<?php echo home_url('/lineas/ancho-internacional.html'); ?>">Ancho internacional</a></li>
-                                        <li><a href="<?php echo home_url('/lineas/tipos-lineas.html'); ?>">Distintos tipos de líneas</a></li>
-                                        <li><a href="<?php echo home_url('/lineas/lineas-cerradas.html'); ?>">Líneas Cerradas</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Ancho ibérico')); ?>">Ancho ibérico</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Ancho métrico')); ?>">Ancho métrico</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Ancho internacional')); ?>">Ancho internacional</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Tipos de líneas')); ?>">Distintos tipos de líneas</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Líneas cerradas')); ?>">Líneas Cerradas</a></li>
                                     </ul>
                                 </div>
 
                                 <div class="seccion-card">
                                     <h4>📋 Proyectos</h4>
                                     <ul>
-                                        <li><a href="<?php echo home_url('/proyectos/proyectos-cancelados.html'); ?>">Proyectos cancelados</a></li>
-                                        <li><a href="<?php echo home_url('/proyectos/proyectos-actuales.html'); ?>">Proyectos actuales</a></li>
-                                        <li><a href="<?php echo home_url('/proyectos/proyectos-en-marcha.html'); ?>">Proyectos en marcha</a></li>
-                                        <li><a href="<?php echo home_url('/proyectos/proyectos-estudio.html'); ?>">Proyectos en estudio</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos cancelados')); ?>">Proyectos cancelados</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos actuales')); ?>">Proyectos actuales</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos en marcha')); ?>">Proyectos en marcha</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Proyectos en estudio')); ?>">Proyectos en estudio</a></li>
                                     </ul>
                                 </div>
 
                                 <div class="seccion-card">
                                     <h4>🏙️ Desarrollo ciudades</h4>
                                     <ul>
-                                        <li><a href="<?php echo home_url('/ciudades/sevilla.html'); ?>">Sevilla</a></li>
-                                        <li><a href="<?php echo home_url('/ciudades/madrid.html'); ?>">Madrid</a></li>
-                                        <li><a href="<?php echo home_url('/ciudades/barcelona.html'); ?>">Barcelona</a></li>
-                                        <li><a href="<?php echo home_url('/ciudades/valencia.html'); ?>">Valencia</a></li>
-                                        <li><a href="<?php echo home_url('/ciudades/bilbao.html'); ?>">Bilbao</a></li>
-                                        <li><a href="<?php echo home_url('/ciudades/a-coruna.html'); ?>">A Coruña</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Bilbao')); ?>">Bilbao</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Sevilla')); ?>">Sevilla</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('A Coruña')); ?>">A Coruña</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Valencia')); ?>">Valencia</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Madrid')); ?>">Madrid</a></li>
+                                        <li><a href="<?php echo get_category_link(get_cat_ID('Barcelona')); ?>">Barcelona</a></li>
+                                        <li class="more-cities" style="display: none;">
+                                            <!-- Aquí se mostrarían otras ciudades cuando se expanda -->
+                                        </li>
+                                        <li style="border: none !important; border-bottom: none !important; list-style: none;"><a href="#" onclick="toggleMoreCities(); return false;" style="color: #888 !important; font-size: 0.9em; text-decoration: none; border: none !important; padding: 0 !important; display: inline !important;">Ver más ciudades...</a></li>
                                     </ul>
                                 </div>
 
@@ -380,8 +384,20 @@
                             </div>
                             <div class="section-content" id="ciudades-section">
                                 <div class="category-checkbox">
+                                    <input type="checkbox" id="bilbao" value="bilbao" onchange="updateCategoryFilter()">
+                                    <label for="bilbao">Bilbao</label>
+                                </div>
+                                <div class="category-checkbox">
                                     <input type="checkbox" id="sevilla" value="sevilla" onchange="updateCategoryFilter()">
                                     <label for="sevilla">Sevilla</label>
+                                </div>
+                                <div class="category-checkbox">
+                                    <input type="checkbox" id="a_coruna" value="a_coruna" onchange="updateCategoryFilter()">
+                                    <label for="a_coruna">A Coruña</label>
+                                </div>
+                                <div class="category-checkbox">
+                                    <input type="checkbox" id="valencia" value="valencia" onchange="updateCategoryFilter()">
+                                    <label for="valencia">Valencia</label>
                                 </div>
                                 <div class="category-checkbox">
                                     <input type="checkbox" id="madrid" value="madrid" onchange="updateCategoryFilter()">
@@ -391,13 +407,9 @@
                                     <input type="checkbox" id="barcelona" value="barcelona" onchange="updateCategoryFilter()">
                                     <label for="barcelona">Barcelona</label>
                                 </div>
-                                <div class="category-checkbox">
-                                    <input type="checkbox" id="valencia" value="valencia" onchange="updateCategoryFilter()">
-                                    <label for="valencia">Valencia</label>
-                                </div>
-                                <div class="category-checkbox">
-                                    <input type="checkbox" id="bilbao" value="bilbao" onchange="updateCategoryFilter()">
-                                    <label for="bilbao">Bilbao</label>
+                                <div class="more-cities-filter" style="display: none;"></div>
+                                <div style="margin-top: 10px; text-align: center;">
+                                    <a href="#" onclick="toggleMoreCitiesFilter(); return false;" style="color: #888; font-size: 0.9em; text-decoration: none; cursor: pointer;">Ver más ciudades...</a>
                                 </div>
                             </div>
                         </div>
